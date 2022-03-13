@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">ExpesesTracker</string>
+
+    <string-array name="items">
+        <item>Select Item</item>
+        <item>Transport</item>
+        <item>Grocery</item>
+        <item>Utilities</item>
+        <item>Entertainment</item>
+        <item>Clothes</item>
+        <item>Other</item>
+    </string-array>
+
+
+    <string-array name="income_items">
+        <item>Select Item</item>
+        <item>Salary</item>
+        <item>Savings</item>
+        <item>Interest</item>
+        <item>Social Benefit</item>
+        <item>Investments</item>
+        <item>Other</item>
+    </string-array>
+</resources>

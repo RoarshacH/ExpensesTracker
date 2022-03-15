@@ -54,18 +54,4 @@ class AnalyticsActivity : AppCompatActivity() {
             }
         }
     }
-
-    fun addValuesToTable(){
-        var thisWeekExpenseTotal = findViewById<TextView>(R.id.TotalThisWeekExpenses)
-        var thisMonthExpensesTotal = findViewById<TextView>(R.id.TotalMonthExpenses)
-        thisMonthExpensesTotal.text = util.getTotal(this.getSharedPreferences("test-expenses", Context.MODE_PRIVATE)).toString()
-
-        var thisWeekIncomesTotal = findViewById<TextView>(R.id.TotalThisWeekIncomes)
-        var thisMonthIncomesTotal = findViewById<TextView>(R.id.TotalMonthIncomes)
-        thisMonthIncomesTotal.text = util.getTotal(getSharedPreferences("test_income", Context.MODE_PRIVATE)).toString()
-
-
-    }
-
-
 }

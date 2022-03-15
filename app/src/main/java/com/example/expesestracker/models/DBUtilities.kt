@@ -247,11 +247,10 @@ class DBUtilities {
                         Constants.CLOTHES -> putValueInHashMap(hashMap, Constants.CLOTHES, getAmount)
                         Constants.OTHER -> putValueInHashMap(hashMap, Constants.OTHER, getAmount)
                     }
-                    putValueInHashMap(hashMap, "Total", total)
                 }
             }
-
         }
+        putValueInHashMap(hashMap, "Total", total)
         return hashMap
     }
 
@@ -291,10 +290,10 @@ class DBUtilities {
                         Constants.CLOTHES -> putValueInHashMap(hashMap, Constants.CLOTHES, getAmount)
                         Constants.OTHER -> putValueInHashMap(hashMap, Constants.OTHER, getAmount)
                     }
-                    putValueInHashMap(hashMap, "Total", total)
                 }
             }
         }
+        putValueInHashMap(hashMap, "Total", total)
         return hashMap
     }
 
@@ -350,10 +349,10 @@ class DBUtilities {
                         )
                         Constants.OTHER -> putValueInHashMap(hashMap, Constants.OTHER, getAmount)
                     }
-                    putValueInHashMap(hashMap, "Total", total)
                 }
             }
         }
+        putValueInHashMap(hashMap, "Total", total)
         return hashMap
     }
 
@@ -408,10 +407,11 @@ class DBUtilities {
                         )
                         Constants.OTHER -> putValueInHashMap(hashMap, Constants.OTHER, getAmount)
                     }
-                    putValueInHashMap(hashMap, "Total", total)
+
                 }
             }
         }
+        putValueInHashMap(hashMap, "Total", total)
         return hashMap
     }
 

@@ -31,16 +31,6 @@ class ExpensesActivity : AppCompatActivity() {
             addItem()
         }
 
-        var hashMap : HashMap<String, Float> = util.getTotalByTypeExpenses(this.getSharedPreferences("test-expenses", Context.MODE_PRIVATE))
-        if (hashMap.isNotEmpty()){
-            var total = util.getTotal(this.getSharedPreferences("test-expenses", Context.MODE_PRIVATE))
-            for(key in hashMap.keys){
-                Log.i("HASHMAP","Element at key $key : ${hashMap[key]}") //
-            }
-            Log.i("HASHMAP","Total is " + total.toString())
-            Log.i("HASHMAP","-------------------------------------------------")
-        }
-
     }
 
     private fun addItem() {

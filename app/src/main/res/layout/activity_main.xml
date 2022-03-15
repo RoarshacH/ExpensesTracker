@@ -154,59 +154,59 @@
 
     <ImageButton
         android:id="@+id/expensesImageButton"
-        android:layout_width="125dp"
-        android:layout_height="115dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:backgroundTint="#002196F3"
         android:contentDescription="Expenses"
         android:scaleType="fitCenter"
+        android:src="@drawable/expense_icon"
         app:layout_constraintBottom_toTopOf="@+id/reportImageButton"
         app:layout_constraintEnd_toStartOf="@+id/incomesImageButton"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Table"
-        android:src="@drawable/expenses" />
+        app:layout_constraintTop_toBottomOf="@+id/Table" />
 
     <ImageButton
         android:id="@+id/incomesImageButton"
-        android:layout_width="125dp"
-        android:layout_height="115dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:backgroundTint="#002196F3"
         android:contentDescription="Incomes"
         android:scaleType="fitCenter"
+        android:src="@drawable/incomes_icon"
         app:layout_constraintBottom_toTopOf="@+id/analyticsImageButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/expensesImageButton"
-        app:layout_constraintTop_toBottomOf="@+id/Table"
-        android:src="@drawable/budget" />
+        app:layout_constraintTop_toBottomOf="@+id/Table" />
 
     <ImageButton
         android:id="@+id/reportImageButton"
-        android:layout_width="125dp"
-        android:layout_height="115dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:backgroundTint="#002196F3"
         android:contentDescription="Report"
         android:scaleType="fitCenter"
+        android:src="@drawable/reports_icon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/analyticsImageButton"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/expensesImageButton"
-        android:src="@drawable/ic_report" />
+        app:layout_constraintTop_toBottomOf="@+id/expensesImageButton" />
 
     <ImageButton
         android:id="@+id/analyticsImageButton"
-        android:layout_width="125dp"
-        android:layout_height="115dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:backgroundTint="#002196F3"
         android:contentDescription="Analytics"
         android:scaleType="fitCenter"
+        android:src="@drawable/analytics_icon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/reportImageButton"
-        app:layout_constraintTop_toBottomOf="@+id/incomesImageButton"
-        android:src="@drawable/ic_anaytic" />
+        app:layout_constraintTop_toBottomOf="@+id/incomesImageButton" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -37,7 +37,13 @@ class MainActivity : AppCompatActivity() {
 
         val reportButton = findViewById<ImageButton>(R.id.reportImageButton)
         reportButton.setOnClickListener { view ->
-            val intent = Intent(this, AnalyticsActivity::class.java)
+            val intent = Intent(this, ReportsActivity::class.java)
+            startActivity(intent)
+        }
+
+        val analyticsButton = findViewById<ImageButton>(R.id.analyticsImageButton)
+        analyticsButton.setOnClickListener { view ->
+            val intent = Intent(this, AnalyticActivity::class.java)
             startActivity(intent)
         }
     }

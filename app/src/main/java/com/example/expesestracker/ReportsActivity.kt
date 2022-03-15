@@ -7,11 +7,11 @@ import android.widget.TextView
 import com.example.expesestracker.models.DBUtilities
 import java.util.HashMap
 
-class AnalyticsActivity : AppCompatActivity() {
+class ReportsActivity : AppCompatActivity() {
     var util = DBUtilities()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_analytics)
+        setContentView(R.layout.activity_report)
 
 
         var hashMapExpensesWeek : HashMap<String, Float> = util.getThisWeekExpenses(this.getSharedPreferences("test-expenses", Context.MODE_PRIVATE))

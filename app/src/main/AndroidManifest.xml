@@ -10,7 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ExpesesTracker">
         <activity
-            android:name=".AnalyticsActivity"
+            android:name=".AnalyticActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ReportsActivity"
             android:exported="false" />
         <activity
             android:name=".IncomeActivity"

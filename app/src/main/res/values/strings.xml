@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ExpesesTracker</string>
+    <string name="app_name">Expenses Tracker</string>
     <string name="expenses_tracker">Expenses Tracker</string>
     <string name="income">Income</string>
     <string name="expenses">Expenses</string>

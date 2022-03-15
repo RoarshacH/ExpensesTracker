@@ -34,6 +34,12 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, IncomeActivity::class.java)
             startActivity(intent)
         }
+
+        val reportButton = findViewById<ImageButton>(R.id.reportImageButton)
+        reportButton.setOnClickListener { view ->
+            val intent = Intent(this, AnalyticsActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun onResume() {

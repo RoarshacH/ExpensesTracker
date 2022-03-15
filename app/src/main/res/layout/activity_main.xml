@@ -14,7 +14,7 @@
         android:background="@color/main_blue"
         android:paddingTop="80dp"
         android:paddingBottom="20dp"
-        android:text="Expenses Tracker"
+        android:text="@string/expenses_tracker"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="28sp"
@@ -44,7 +44,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:padding="5dp"
-                android:text="Income"
+                android:text="@string/income"
                 android:textColor="#FFFFFF"
                 android:textSize="16sp" />
 
@@ -54,7 +54,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:padding="5dp"
-                android:text="Expenses"
+                android:text="@string/expenses"
                 android:textColor="#FFFFFF"
                 android:textSize="16sp" />
 
@@ -68,7 +68,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:padding="5dp"
-                android:text="Total"
+                android:text="@string/total"
                 android:textColor="#FFFFFF"
                 android:textSize="14sp" />
 
@@ -79,7 +79,6 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:padding="5dp"
-                android:text="$0.0"
                 android:textColor="#FFFFFF"
                 android:textSize="14sp" />
 
@@ -89,7 +88,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:padding="5dp"
-                android:text="Total"
+                android:text="@string/total"
                 android:textColor="#FFFFFF"
                 android:textSize="14sp" />
 
@@ -100,7 +99,6 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:padding="5dp"
-                android:text="$0.0"
                 android:textColor="#FFFFFF"
                 android:textSize="14sp" />
         </TableRow>
@@ -113,7 +111,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:padding="5dp"
-                android:text="Latest"
+                android:text="@string/latest"
                 android:textColor="#FFFFFF"
                 android:textSize="14sp" />
 
@@ -124,7 +122,6 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:padding="5dp"
-                android:text="$0.0"
                 android:textColor="#FFFFFF"
                 android:textSize="14sp" />
 
@@ -134,7 +131,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:padding="5dp"
-                android:text="Latest"
+                android:text="@string/latest"
                 android:textColor="#FFFFFF"
                 android:textSize="14sp" />
 
@@ -145,7 +142,6 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:padding="5dp"
-                android:text="$0.0"
                 android:textColor="#FFFFFF"
                 android:textSize="14sp" />
 
@@ -157,35 +153,37 @@
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:backgroundTint="#002196F3"
-        android:contentDescription="Expenses"
+        android:contentDescription="@string/expenses"
         android:scaleType="fitCenter"
         android:src="@drawable/expense_icon"
         app:layout_constraintBottom_toTopOf="@+id/reportImageButton"
         app:layout_constraintEnd_toStartOf="@+id/incomesImageButton"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Table" />
+        app:layout_constraintTop_toBottomOf="@+id/Table"
+        tools:ignore="DuplicateSpeakableTextCheck" />
 
     <ImageButton
         android:id="@+id/incomesImageButton"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:backgroundTint="#002196F3"
-        android:contentDescription="Incomes"
+        android:contentDescription="@string/income"
         android:scaleType="fitCenter"
         android:src="@drawable/incomes_icon"
         app:layout_constraintBottom_toTopOf="@+id/analyticsImageButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/expensesImageButton"
-        app:layout_constraintTop_toBottomOf="@+id/Table" />
+        app:layout_constraintTop_toBottomOf="@+id/Table"
+        tools:ignore="DuplicateSpeakableTextCheck" />
 
     <ImageButton
         android:id="@+id/reportImageButton"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:backgroundTint="#002196F3"
-        android:contentDescription="Report"
+        android:contentDescription="@string/report"
         android:scaleType="fitCenter"
         android:src="@drawable/reports_icon"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -199,7 +197,7 @@
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:backgroundTint="#002196F3"
-        android:contentDescription="Analytics"
+        android:contentDescription="@string/analytics"
         android:scaleType="fitCenter"
         android:src="@drawable/analytics_icon"
         app:layout_constraintBottom_toBottomOf="parent"

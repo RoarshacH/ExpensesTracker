@@ -1,5 +1,12 @@
 <resources>
     <string name="app_name">ExpesesTracker</string>
+    <string name="expenses_tracker">Expenses Tracker</string>
+    <string name="income">Income</string>
+    <string name="expenses">Expenses</string>
+    <string name="total">Total</string>
+    <string name="latest">Latest</string>
+    <string name="report">Report</string>
+    <string name="analytics">Analytics</string>
 
     <string-array name="items">
         <item>Select Item</item>

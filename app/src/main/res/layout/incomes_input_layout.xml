@@ -23,7 +23,7 @@
                 android:layout_gravity="center"
                 android:entries="@array/income_items"
                 android:gravity="center"
-                android:minHeight="48dp"></Spinner>
+                android:minHeight="48dp"/>
 
             <EditText
                 android:id="@+id/amount"

@@ -40,6 +40,23 @@ class DBUtilities {
         }
     }
 
+
+    fun updateItem(sharedPreferences: SharedPreferences, item: ExpenseItem){
+        //Get Number of items rough way of keeping the id
+        var idString = item.ID
+        val id = idString.filter { it.isDigit() }
+        with(sharedPreferences.edit()){
+            putString(Constants.TYPE + id, item.TYPE)
+            putFloat(Constants.AMOUNT + id, item.AMOUNT)
+            putString(Constants.DESCRIPTION + id, item.DESCRIPTION)
+
+            apply() //this is async commit() is sync both can be used but better not to call commit()
+            Log.i("Save", sharedPreferences.getString(Constants.TYPE + id, "ERROR").toString())
+            Log.i("Save", sharedPreferences.getFloat(Constants.AMOUNT +id, 0.0F).toString())
+            Log.i("Save", sharedPreferences.getString(Constants.DESCRIPTION +id, "").toString())
+        }
+    }
+
     /**
      * Removes the All shared preferences Storage. Do not use unless want to clear storage
      * @return nothing
@@ -96,6 +113,25 @@ class DBUtilities {
             }
         }
         return expensesList
+    }
+
+    fun getItem(sharedPreferences: SharedPreferences, id: String): ExpenseItem {
+        val id = sharedPreferences.getInt(Constants.ID, 0)
+        var pastGame: ExpenseItem = ExpenseItem("Item", "", "", "", 0.0F)
+        for (i in 1..id) {
+            val getType = sharedPreferences.getString(Constants.TYPE + i, "ERROR")
+            val getDateTime = sharedPreferences.getString(Constants.DATE_TIME + i, "ERROR")
+            val getAmount = sharedPreferences.getFloat(Constants.AMOUNT +i, 0.0F)
+            val getDescription = sharedPreferences.getString(Constants.DESCRIPTION +i, "")
+
+            if (getType.equals("ERROR")){
+                //Do nothing
+            }
+            else{
+                pastGame =  ExpenseItem("Item " + i.toString(), getType!!, getDateTime!!, getDescription!!, getAmount!!)
+            }
+        }
+        return pastGame
     }
 
     /**

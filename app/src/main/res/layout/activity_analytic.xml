@@ -68,7 +68,7 @@
                 android:minHeight="48dp"
                 android:background="@color/white"
                 android:textAlignment="center"
-                android:theme="@style/mySpinnerItemStyle"></Spinner>
+                android:theme="@style/mySpinnerItemStyle"/>
 
             <TextView
                 android:layout_width="0dp"

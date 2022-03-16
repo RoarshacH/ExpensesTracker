@@ -2,6 +2,8 @@ package com.example.expesestracker
 
 import android.content.Context
 import android.content.DialogInterface
+import android.content.SharedPreferences
+import android.text.Layout
 import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
@@ -62,13 +64,15 @@ class MyDataItemRecyclerViewAdapter(
         holder.editItem.setOnClickListener{view ->
             var sharedPrefs =  view.context.getSharedPreferences("test-expenses", Context.MODE_PRIVATE)
             val pageContext = view.context.javaClass.toString()
+            var layoutName = R.layout.expenses_input_layout
             if (pageContext == "class com.example.expesestracker.ExpensesActivity") {
+                layoutName = R.layout.expenses_input_layout
                 sharedPrefs = view.context.getSharedPreferences("test-expenses", Context.MODE_PRIVATE)
             } else if (pageContext == "class com.example.expesestracker.IncomeActivity") {
                 sharedPrefs =  view.context.getSharedPreferences("test_income", Context.MODE_PRIVATE)
+                layoutName = R.layout.incomes_input_layout
             }
-//            val item = util.getItem(sharedPrefs, item.ID)
-            updateItem(view, item)
+            updateItem(view, item , sharedPrefs, layoutName)
 
         }
     }
@@ -86,11 +90,11 @@ class MyDataItemRecyclerViewAdapter(
             return super.toString() + " '" + dateView.text + "'"
         }
     }
-    private fun updateItem(viewIn: View, item: ExpenseItem) {
+    private fun updateItem(viewIn: View, item: ExpenseItem, sharedPref: SharedPreferences, layoutNM: Int) {
 
         val builder = AlertDialog.Builder(viewIn.context)
         val layoutInflater: LayoutInflater = viewIn.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val view =  layoutInflater.inflate(R.layout.expenses_input_layout, null)
+        val view =  layoutInflater.inflate(layoutNM, null)
         val saveButton = view.findViewById<Button>(R.id.save)
         val amount = view.findViewById<EditText>(R.id.amount)
         val itemSpinner = view.findViewById<Spinner>(R.id.itemsSpinner)
@@ -107,6 +111,7 @@ class MyDataItemRecyclerViewAdapter(
 
             if (TextUtils.isEmpty(expenseAmount)) {
                 amount.error = "Amount is required"
+                return@OnClickListener
             }
             else{
                 val expenseAmountFLOAT: Float? = expenseAmount.toFloatOrNull()
@@ -119,12 +124,13 @@ class MyDataItemRecyclerViewAdapter(
                         "Select a Type",
                         Toast.LENGTH_SHORT
                     ).show()
+                    return@OnClickListener
                 }
                 else{
                     val expense = ExpenseItem(item.ID, expenseItem, item.DATE_TIME , expenseDescription,expenseAmountFLOAT!! )
-                    util.updateItem(view.context.getSharedPreferences("test-expenses", Context.MODE_PRIVATE), expense)
+                    util.updateItem(sharedPref, expense)
+                    dialog.cancel()
                 }
-                dialog.cancel()
             }
         })
 

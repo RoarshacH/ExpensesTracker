@@ -1,5 +1,6 @@
 package com.example.expesestracker.models
 
+import android.annotation.SuppressLint
 import android.content.SharedPreferences
 import android.util.Log
 import java.text.SimpleDateFormat
@@ -37,12 +38,6 @@ class DBUtilities {
 
             apply() //this is async commit() is sync both can be used but better not to call commit()
         }
-
-////        For Testing
-//        val temo = sharedPreferences.getInt(Constants.NUMBEROFITEMS, 0)
-//        Log.i("Saved", temo.toString())
-//        val getAmount = sharedPreferences.getFloat(Constants.AMOUNT +numberOfItems, 0.0F)
-//        Log.i("Saved", getAmount.toString())
     }
 
     /**
@@ -51,10 +46,9 @@ class DBUtilities {
      */
     fun deleteALL(sharedPreferences: SharedPreferences){
         with(sharedPreferences.edit()){
-            clear();
-            commit(); // commit changes
+            clear()
+            commit() // commit changes
         }
-
     }
 
     /**
@@ -65,8 +59,8 @@ class DBUtilities {
     fun deleteItem(sharedPreferences: SharedPreferences, dbName:String, item: ExpenseItem){
 
         var numberOfItems = sharedPreferences.getInt(Constants.NUMBEROFITEMS, 0)
-        var id = item.ID
-        var result = id.filter { it.isDigit() }
+        val id = item.ID
+        val result = id.filter { it.isDigit() }
         with(sharedPreferences.edit()){
             remove(Constants.TYPE + result)
             remove(Constants.DATE_TIME + result)
@@ -86,7 +80,7 @@ class DBUtilities {
      */
     fun getValues(sharedPreferences: SharedPreferences): MutableList<ExpenseItem> {
         val expensesList: MutableList<ExpenseItem> = ArrayList()
-        var id = sharedPreferences.getInt(Constants.ID, 0)
+        val id = sharedPreferences.getInt(Constants.ID, 0)
         for (i in 1..id) {
             val getType = sharedPreferences.getString(Constants.TYPE + i, "ERROR")
             val getDateTime = sharedPreferences.getString(Constants.DATE_TIME + i, "ERROR")
@@ -120,7 +114,7 @@ class DBUtilities {
      */
     fun getTotal(sharedPreferences: SharedPreferences): Float {
         val id = sharedPreferences.getInt(Constants.ID, 0)
-        var total:Float = 0.0F
+        var total = 0.0F
         for (i in 1..id) {
             val getAmount = sharedPreferences.getFloat(Constants.AMOUNT +i, 0.0F)
             total += getAmount
@@ -134,15 +128,13 @@ class DBUtilities {
      * @return [Float] value of latest item
      */
     fun getLatest(sharedPreferences: SharedPreferences): Float {
-        var list: MutableList<ExpenseItem> = getValues(sharedPreferences)
-        if (list.count() != 0){
+        val list: MutableList<ExpenseItem> = getValues(sharedPreferences)
+        return if (list.count() != 0){
             list.reverse()
-
-            var item: ExpenseItem = list[0]
-            return item.AMOUNT
-        }
-        else{
-            return 0.0F
+            val item: ExpenseItem = list[0]
+            item.AMOUNT
+        } else{
+            0.0F
         }
     }
 
@@ -152,9 +144,9 @@ class DBUtilities {
      * @return [HashMap] of items by Type in the Incomes DB
      */
     fun getTotalByTypeIncomes(sharedPreferences: SharedPreferences): HashMap<String, Float> {
-        var hashMap : HashMap<String, Float>
+        val hashMap : HashMap<String, Float>
                 = HashMap ()
-        var id = sharedPreferences.getInt(Constants.ID, 0)
+        val id = sharedPreferences.getInt(Constants.ID, 0)
         for (i in 1..id) {
             val getType = sharedPreferences.getString(Constants.TYPE + i, "ERROR")
             val getAmount = sharedPreferences.getFloat(Constants.AMOUNT +i, 0.0F)
@@ -177,9 +169,9 @@ class DBUtilities {
      * @return [HashMap] of items by Type in the Expenses DB
      */
     fun getTotalByTypeExpenses(sharedPreferences: SharedPreferences): HashMap<String, Float> {
-        var hashMap : HashMap<String, Float>
+        val hashMap : HashMap<String, Float>
                 = HashMap ()
-        var id = sharedPreferences.getInt(Constants.ID, 0)
+        val id = sharedPreferences.getInt(Constants.ID, 0)
         for (i in 1..id) {
             val getType = sharedPreferences.getString(Constants.TYPE + i, "ERROR")
             val getAmount = sharedPreferences.getFloat(Constants.AMOUNT +i, 0.0F)
@@ -216,16 +208,17 @@ class DBUtilities {
      * Get the result only of items added this week by type of the items in the DB Expenses
      * @return [HashMap] of items for this week by Type  in the Expenses DB
      */
+    @SuppressLint("SimpleDateFormat")
     fun getThisWeekExpenses(sharedPreferences: SharedPreferences): HashMap<String, Float> {
-        var hashMap : HashMap<String, Float>
+        val hashMap : HashMap<String, Float>
                 = HashMap ()
         var total:Float = 0.0F
-        var id = sharedPreferences.getInt(Constants.ID, 0)
+        val id = sharedPreferences.getInt(Constants.ID, 0)
         val thisWeek = getThisWeekNumber()
 
         for (i in 1..id) {
 
-            var dateString =sharedPreferences.getString(Constants.DATE_TIME + i, "ERROR")
+            val dateString =sharedPreferences.getString(Constants.DATE_TIME + i, "ERROR")
 
             if (dateString.equals("ERROR")){
 //                Do Nothing
@@ -259,11 +252,12 @@ class DBUtilities {
      * Get the result only of items added this month by type of the items in the DB Expenses
      * @return [HashMap] of items for this month by Type  in the Expenses DB
      */
+    @SuppressLint("SimpleDateFormat")
     fun getThisMonthExpenses(sharedPreferences: SharedPreferences): HashMap<String, Float> {
-        var hashMap : HashMap<String, Float>
+        val hashMap : HashMap<String, Float>
                 = HashMap ()
         var total:Float = 0.0F
-        var id = sharedPreferences.getInt(Constants.ID, 0)
+        val id = sharedPreferences.getInt(Constants.ID, 0)
         val dateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("M/d/y H:m:ss"))
         val dateNow = SimpleDateFormat("M/d/y H:m:ss").parse(dateTime)
         val thisMonth = dateNow.month
@@ -302,11 +296,12 @@ class DBUtilities {
      * Get the result only of items added this month by type of the items in the DB Incomes
      * @return [HashMap] of items for this month by Type  in the Incomes DB
      */
+    @SuppressLint("SimpleDateFormat")
     fun getThisMonthIncomes(sharedPreferences: SharedPreferences): HashMap<String, Float> {
-        var hashMap : HashMap<String, Float>
+        val hashMap : HashMap<String, Float>
                 = HashMap ()
         var total:Float = 0.0F
-        var id = sharedPreferences.getInt(Constants.ID, 0)
+        val id = sharedPreferences.getInt(Constants.ID, 0)
         val dateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("M/d/y H:m:ss"))
         val dateNow = SimpleDateFormat("M/d/y H:m:ss").parse(dateTime)
         val thisMonth = dateNow.month
@@ -361,18 +356,19 @@ class DBUtilities {
      * Get the result only of items added this week by type of the items in the DB Incomes
      * @return [HashMap] of items for this week by Type  in the Incomes DB
      */
+    @SuppressLint("SimpleDateFormat")
     fun getThisWeekIncomes(sharedPreferences: SharedPreferences): HashMap<String, Float> {
-        var hashMap : HashMap<String, Float>
+        val hashMap : HashMap<String, Float>
                 = HashMap ()
         var total:Float = 0.0F
-        var id = sharedPreferences.getInt(Constants.ID, 0)
+        val id = sharedPreferences.getInt(Constants.ID, 0)
         val dateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("M/d/y H:m:ss"))
         val dateNow = SimpleDateFormat("M/d/y H:m:ss").parse(dateTime)
         val thisMonth = dateNow.month
 
         for (i in 1..id) {
 
-            var dateString = sharedPreferences.getString(Constants.DATE_TIME + i, "ERROR")
+            val dateString = sharedPreferences.getString(Constants.DATE_TIME + i, "ERROR")
             if (dateString.equals("ERROR")) {
 //                Do Nothing
             } else {
@@ -407,7 +403,6 @@ class DBUtilities {
                         )
                         Constants.OTHER -> putValueInHashMap(hashMap, Constants.OTHER, getAmount)
                     }
-
                 }
             }
         }
@@ -419,6 +414,7 @@ class DBUtilities {
      * Get the week number by year
      * @return [Int] of the week number
      */
+    @SuppressLint("SimpleDateFormat")
     private fun getThisWeekNumber(): Int {
         val dateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("M/d/y H:m:ss"))
         val dateNow = SimpleDateFormat("M/d/y H:m:ss").parse(dateTime)
@@ -439,18 +435,18 @@ class Constants{
         val DATE_TIME = "DATE_TIME"
         val DESCRIPTION = "DESCRIPTION"
 
-        val TRANSPORT= "Transport"
-        val GROCERY = "Grocery"
-        val UTILITIES = "Utilities"
-        val ENTERTAINMENT = "Entertainment"
-        val CLOTHES = "Clothes"
-        val OTHER = "Other"
+        var TRANSPORT= "Transport"
+        var GROCERY = "Grocery"
+        var UTILITIES = "Utilities"
+        var ENTERTAINMENT = "Entertainment"
+        var CLOTHES = "Clothes"
+        var OTHER = "Other"
 
-        val SALARY = "Salary"
-        val Savings = "Savings"
-        val INTEREST = "Interest"
-        val SOCIALBENIFITS = "Benefits"
-        val INVASMENTS = "Investments"
+        var SALARY = "Salary"
+        var Savings = "Savings"
+        var INTEREST = "Interest"
+        var SOCIALBENIFITS = "Benefits"
+        var INVASMENTS = "Investments"
 
     }
 }

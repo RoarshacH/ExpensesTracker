@@ -6,9 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.Spinner
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.example.expesestracker.models.Constants
 import com.example.expesestracker.models.DBUtilities
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.components.Legend

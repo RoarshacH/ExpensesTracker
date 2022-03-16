@@ -3,9 +3,7 @@ package com.example.expesestracker
 import android.content.Context
 import android.content.DialogInterface
 import android.content.SharedPreferences
-import android.text.Layout
 import android.text.TextUtils
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.INVISIBLE
@@ -58,10 +56,11 @@ class MyDataItemRecyclerViewAdapter(
                 sharedPrefs =  view.context.getSharedPreferences("test_income", Context.MODE_PRIVATE)
             }
             util.deleteItem(sharedPrefs, "EXPENSE", item)
-            notifyDataSetChanged()
+            this.notifyItemRemoved(position)
         }
 
         holder.editItem.setOnClickListener{view ->
+
             var sharedPrefs =  view.context.getSharedPreferences("test-expenses", Context.MODE_PRIVATE)
             val pageContext = view.context.javaClass.toString()
             var layoutName = R.layout.expenses_input_layout
@@ -73,7 +72,7 @@ class MyDataItemRecyclerViewAdapter(
                 layoutName = R.layout.incomes_input_layout
             }
             updateItem(view, item , sharedPrefs, layoutName)
-
+            this.notifyItemChanged(position)
         }
     }
 

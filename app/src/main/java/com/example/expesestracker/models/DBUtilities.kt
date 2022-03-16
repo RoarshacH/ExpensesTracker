@@ -41,7 +41,7 @@ class DBUtilities {
     }
 
 
-    fun updateItem(sharedPreferences: SharedPreferences, item: ExpenseItem){
+    fun updateItem(sharedPreferences: SharedPreferences, item: ExpenseItem) {
         //Get Number of items rough way of keeping the id
         var idString = item.ID
         val id = idString.filter { it.isDigit() }
@@ -73,7 +73,7 @@ class DBUtilities {
      * @param item item to delete
      * Removes a [ExpenseItem] from DB.
      */
-    fun deleteItem(sharedPreferences: SharedPreferences, dbName:String, item: ExpenseItem){
+    fun deleteItem(sharedPreferences: SharedPreferences, dbName:String, item: ExpenseItem) {
 
         var numberOfItems = sharedPreferences.getInt(Constants.NUMBEROFITEMS, 0)
         val id = item.ID
@@ -87,7 +87,7 @@ class DBUtilities {
             putInt(Constants.NUMBEROFITEMS, numberOfItems)
             apply() //this is async commit() is sync both can be used but better not to call commit()
         }
-        numberOfItems = sharedPreferences.getInt(Constants.NUMBEROFITEMS, 0)
+//        numberOfItems = sharedPreferences.getInt(Constants.NUMBEROFITEMS, 0)
     }
 
     /**

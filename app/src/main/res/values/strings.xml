@@ -28,4 +28,12 @@
         <item>Investments</item>
         <item>Other</item>
     </string-array>
+
+    <string-array name="analytics_choice">
+        <item>Week Spending</item>
+        <item>Month Spending</item>
+        <item>Week Income</item>
+        <item>Month Income</item>
+    </string-array>
+
 </resources>

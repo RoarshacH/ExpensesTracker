@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.expesestracker.databinding.FragmentItemBinding
 import com.example.expesestracker.models.DBUtilities
 import com.example.expesestracker.models.ExpenseItem
+import com.example.expesestracker.models.PopulateContentForList
 import java.util.*
 
 
@@ -36,8 +37,8 @@ class MyDataItemRecyclerViewAdapter(
                 false
             )
         )
-
     }
+
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = values[position]
@@ -56,7 +57,8 @@ class MyDataItemRecyclerViewAdapter(
                 sharedPrefs =  view.context.getSharedPreferences("test_income", Context.MODE_PRIVATE)
             }
             util.deleteItem(sharedPrefs, "EXPENSE", item)
-            this.notifyItemRemoved(position)
+            PopulateContentForList.loadList(sharedPrefs)
+            notifyItemRemoved(position)
         }
 
         holder.editItem.setOnClickListener{view ->
@@ -71,8 +73,9 @@ class MyDataItemRecyclerViewAdapter(
                 sharedPrefs =  view.context.getSharedPreferences("test_income", Context.MODE_PRIVATE)
                 layoutName = R.layout.incomes_input_layout
             }
-            updateItem(view, item , sharedPrefs, layoutName)
-            this.notifyItemChanged(position)
+            updateItem(view, item , sharedPrefs, layoutName, holder)
+            PopulateContentForList.loadList(sharedPrefs)
+            notifyItemChanged(position)
         }
     }
 
@@ -89,7 +92,7 @@ class MyDataItemRecyclerViewAdapter(
             return super.toString() + " '" + dateView.text + "'"
         }
     }
-    private fun updateItem(viewIn: View, item: ExpenseItem, sharedPref: SharedPreferences, layoutNM: Int) {
+    private fun updateItem(viewIn: View, item: ExpenseItem, sharedPref: SharedPreferences, layoutNM: Int, holder: ViewHolder) {
 
         val builder = AlertDialog.Builder(viewIn.context)
         val layoutInflater: LayoutInflater = viewIn.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
@@ -106,31 +109,7 @@ class MyDataItemRecyclerViewAdapter(
 
         builder.setPositiveButton("Proceed", DialogInterface.OnClickListener {
                 dialog, id ->
-            val expenseAmount: String = amount.text.toString()
 
-            if (TextUtils.isEmpty(expenseAmount)) {
-                amount.error = "Amount is required"
-                return@OnClickListener
-            }
-            else{
-                val expenseAmountFLOAT: Float? = expenseAmount.toFloatOrNull()
-                val expenseItem = itemSpinner.selectedItem.toString()
-                val expenseDescription = description.text.toString()
-
-                if (expenseItem == "Select Item") {
-                    Toast.makeText(
-                        view.context,
-                        "Select a Type",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    return@OnClickListener
-                }
-                else{
-                    val expense = ExpenseItem(item.ID, expenseItem, item.DATE_TIME , expenseDescription,expenseAmountFLOAT!! )
-                    util.updateItem(sharedPref, expense)
-                    dialog.cancel()
-                }
-            }
         })
 
         with(builder) {
@@ -149,8 +128,47 @@ class MyDataItemRecyclerViewAdapter(
                 description.setText(item.DESCRIPTION)
                 setView(view)
                 setCancelable(true)
-                show()
             }
+            val dialog = builder.create()
+            dialog.show()
+
+//            Overriding the Positive button to do validations otherwise it will close the dialog
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(
+                View.OnClickListener {
+                    val expenseAmount: String = amount.text.toString()
+
+                    if (TextUtils.isEmpty(expenseAmount)) {
+                        amount.error = "Amount is required"
+                        return@OnClickListener
+                    }
+                    else{
+                        val expenseAmountFLOAT: Float? = expenseAmount.toFloatOrNull()
+                        val expenseItem = itemSpinner.selectedItem.toString()
+                        val expenseDescription = description.text.toString()
+
+                        if (expenseItem == "Select Item") {
+                            Toast.makeText(
+                                view.context,
+                                "Select a Type",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            return@OnClickListener
+                        }
+                        else{
+                            val expense = ExpenseItem(item.ID, expenseItem, item.DATE_TIME , expenseDescription,expenseAmountFLOAT!! )
+                            util.updateItem(sharedPref, expense)
+
+//                    val intId = item.ID.filter { it.isDigit() }
+//                    val updatedItem: ExpenseItem = util.getItem(sharedPref, intId)
+//                    holder.idView.text = updatedItem.TYPE
+//                    holder.dateView.text = "updatedItem.DATE_TIME"
+//                    holder.amountView.text = updatedItem.AMOUNT.toString()
+//                    notifyDataSetChanged()
+                            dialog.dismiss()
+                        }
+                    }
+
+                })
         }
     }
 }

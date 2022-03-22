@@ -1,6 +1,7 @@
 package com.example.expesestracker
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,7 +11,9 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.expesestracker.models.ExpenseItem
 import com.example.expesestracker.models.PopulateContentForList
+import java.util.ArrayList
 
 /**
  * A fragment representing a list of Items.
@@ -50,14 +53,14 @@ class DataItemFragment : Fragment() {
                     sharedPrefs =  activity?.getSharedPreferences("test_income", Context.MODE_PRIVATE)
                 }
 
-
-                Log.i("pageContext", pageContext)
                 PopulateContentForList.loadList(sharedPrefs!!)
                 adapter = MyDataItemRecyclerViewAdapter(PopulateContentForList.ITEMS)
             }
         }
         return view
     }
+
+
 
     companion object {
 

@@ -351,7 +351,6 @@ class DBUtilities {
             else {
                 val date = SimpleDateFormat("M/d/y H:m:ss").parse(dateString)
                 val monthDB = date.month
-
                 if (monthDB == thisMonth) {
                     val getType = sharedPreferences.getString(Constants.TYPE + i, "ERROR")
                     val getAmount = sharedPreferences.getFloat(Constants.AMOUNT + i, 0.0F)
@@ -398,9 +397,7 @@ class DBUtilities {
                 = HashMap ()
         var total:Float = 0.0F
         val id = sharedPreferences.getInt(Constants.ID, 0)
-        val dateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("M/d/y H:m:ss"))
-        val dateNow = SimpleDateFormat("M/d/y H:m:ss").parse(dateTime)
-        val thisMonth = dateNow.month
+        val thisWeek = getThisWeekNumber()
 
         for (i in 1..id) {
 
@@ -409,9 +406,9 @@ class DBUtilities {
 //                Do Nothing
             } else {
                 val date = SimpleDateFormat("M/d/y H:m:ss").parse(dateString)
-                val monthDB = date.month
-
-                if (monthDB == thisMonth) {
+                val dateDB: LocalDate = LocalDate.of(date.year, date.month, date.date)
+                val weekOfYear: Int = dateDB.get(WeekFields.of(Locale.ENGLISH).weekOfYear())
+                if (weekOfYear == thisWeek) {
                     val getType = sharedPreferences.getString(Constants.TYPE + i, "ERROR")
                     val getAmount = sharedPreferences.getFloat(Constants.AMOUNT + i, 0.0F)
                     total += getAmount

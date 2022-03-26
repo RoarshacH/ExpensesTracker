@@ -65,7 +65,10 @@ class IncomeActivity : AppCompatActivity() {
                 }
                 else{
                     val expense = ExpenseItem("99", expenseItem, Date().toString() , expenseDescription,expenseAmountFLOAT!! )
-                    util.saveItem(view.context.getSharedPreferences("test_income", Context.MODE_PRIVATE), "INCOME", expense)
+                    util.saveItem(
+                        view.context.getSharedPreferences("test_income", Context.MODE_PRIVATE),
+                        expense
+                    )
                     finish()
                 }
             }

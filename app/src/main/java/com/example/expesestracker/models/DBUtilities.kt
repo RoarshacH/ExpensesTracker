@@ -18,7 +18,7 @@ class DBUtilities {
      * @param item item to Add
      * Adds a [ExpenseItem] to the DB. and increase the number of items parameter
      */
-    fun saveItem(sharedPreferences: SharedPreferences, dbName:String, item: ExpenseItem){
+    fun saveItem(sharedPreferences: SharedPreferences, item: ExpenseItem){
         //Get Number of items rough way of keeping the id
         var numberOfItems = sharedPreferences.getInt(Constants.NUMBEROFITEMS, 0)
         var id = sharedPreferences.getInt(Constants.ID, 0)
@@ -43,7 +43,7 @@ class DBUtilities {
 
     fun updateItem(sharedPreferences: SharedPreferences, item: ExpenseItem) {
         //Get Number of items rough way of keeping the id
-        var idString = item.ID
+        val idString = item.ID
         val id = idString.filter { it.isDigit() }
         with(sharedPreferences.edit()){
             putString(Constants.TYPE + id, item.TYPE)
@@ -73,7 +73,7 @@ class DBUtilities {
      * @param item item to delete
      * Removes a [ExpenseItem] from DB.
      */
-    fun deleteItem(sharedPreferences: SharedPreferences, dbName:String, item: ExpenseItem) {
+    fun deleteItem(sharedPreferences: SharedPreferences, item: ExpenseItem) {
 
         var numberOfItems = sharedPreferences.getInt(Constants.NUMBEROFITEMS, 0)
         val id = item.ID
@@ -108,30 +108,13 @@ class DBUtilities {
                 //Do nothing
             }
             else{
-                val pastGame =  ExpenseItem("Item " + i.toString(), getType!!, getDateTime!!, getDescription!!, getAmount!!)
+                val pastGame =  ExpenseItem("Item " + i.toString(), getType!!, getDateTime!!, getDescription!!,
+                    getAmount
+                )
                 expensesList.add(pastGame)
             }
         }
         return expensesList
-    }
-
-    fun getItem(sharedPreferences: SharedPreferences, id: String): ExpenseItem {
-        val id = sharedPreferences.getInt(Constants.ID, 0)
-        var pastGame: ExpenseItem = ExpenseItem("Item", "", "", "", 0.0F)
-        for (i in 1..id) {
-            val getType = sharedPreferences.getString(Constants.TYPE + i, "ERROR")
-            val getDateTime = sharedPreferences.getString(Constants.DATE_TIME + i, "ERROR")
-            val getAmount = sharedPreferences.getFloat(Constants.AMOUNT +i, 0.0F)
-            val getDescription = sharedPreferences.getString(Constants.DESCRIPTION +i, "")
-
-            if (getType.equals("ERROR")){
-                //Do nothing
-            }
-            else{
-                pastGame =  ExpenseItem("Item " + i.toString(), getType!!, getDateTime!!, getDescription!!, getAmount!!)
-            }
-        }
-        return pastGame
     }
 
     /**
@@ -248,7 +231,7 @@ class DBUtilities {
     fun getThisWeekExpenses(sharedPreferences: SharedPreferences): HashMap<String, Float> {
         val hashMap : HashMap<String, Float>
                 = HashMap ()
-        var total:Float = 0.0F
+        var total = 0.0F
         val id = sharedPreferences.getInt(Constants.ID, 0)
         val thisWeek = getThisWeekNumber()
 
@@ -292,7 +275,7 @@ class DBUtilities {
     fun getThisMonthExpenses(sharedPreferences: SharedPreferences): HashMap<String, Float> {
         val hashMap : HashMap<String, Float>
                 = HashMap ()
-        var total:Float = 0.0F
+        var total = 0.0F
         val id = sharedPreferences.getInt(Constants.ID, 0)
         val dateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("M/d/y H:m:ss"))
         val dateNow = SimpleDateFormat("M/d/y H:m:ss").parse(dateTime)
@@ -300,7 +283,7 @@ class DBUtilities {
 
         for (i in 1..id) {
 
-            var dateString =sharedPreferences.getString(Constants.DATE_TIME + i, "ERROR")
+            val dateString =sharedPreferences.getString(Constants.DATE_TIME + i, "ERROR")
             if (dateString.equals("ERROR")){
 //                Do Nothing
             }
@@ -336,7 +319,7 @@ class DBUtilities {
     fun getThisMonthIncomes(sharedPreferences: SharedPreferences): HashMap<String, Float> {
         val hashMap : HashMap<String, Float>
                 = HashMap ()
-        var total:Float = 0.0F
+        var total = 0.0F
         val id = sharedPreferences.getInt(Constants.ID, 0)
         val dateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("M/d/y H:m:ss"))
         val dateNow = SimpleDateFormat("M/d/y H:m:ss").parse(dateTime)
@@ -344,7 +327,7 @@ class DBUtilities {
 
         for (i in 1..id) {
 
-            var dateString =sharedPreferences.getString(Constants.DATE_TIME + i, "ERROR")
+            val dateString =sharedPreferences.getString(Constants.DATE_TIME + i, "ERROR")
             if (dateString.equals("ERROR")){
 //                Do Nothing
             }
@@ -395,7 +378,7 @@ class DBUtilities {
     fun getThisWeekIncomes(sharedPreferences: SharedPreferences): HashMap<String, Float> {
         val hashMap : HashMap<String, Float>
                 = HashMap ()
-        var total:Float = 0.0F
+        var total = 0.0F
         val id = sharedPreferences.getInt(Constants.ID, 0)
         val thisWeek = getThisWeekNumber()
 

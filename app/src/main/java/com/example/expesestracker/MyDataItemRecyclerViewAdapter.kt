@@ -15,7 +15,6 @@ import com.example.expesestracker.databinding.FragmentItemBinding
 import com.example.expesestracker.models.DBUtilities
 import com.example.expesestracker.models.ExpenseItem
 import com.example.expesestracker.models.PopulateContentForList
-import java.util.*
 
 
 /**
@@ -23,7 +22,7 @@ import java.util.*
  * TODO: Replace the implementation with code for your data type.
  */
 class MyDataItemRecyclerViewAdapter(
-    private val values: List<ExpenseItem>
+    private var values: List<ExpenseItem>
 ) : RecyclerView.Adapter<MyDataItemRecyclerViewAdapter.ViewHolder>() {
     var util = DBUtilities()
 
@@ -56,8 +55,10 @@ class MyDataItemRecyclerViewAdapter(
             } else if (pageContext == "class com.example.expesestracker.IncomeActivity") {
                 sharedPrefs =  view.context.getSharedPreferences("test_income", Context.MODE_PRIVATE)
             }
-            util.deleteItem(sharedPrefs, "EXPENSE", item)
+            util.deleteItem(sharedPrefs, item)
             PopulateContentForList.loadList(sharedPrefs)
+            val newList = PopulateContentForList.ITEMS
+            updateItemsList(newList)
             notifyItemRemoved(position)
         }
 
@@ -74,7 +75,6 @@ class MyDataItemRecyclerViewAdapter(
                 layoutName = R.layout.incomes_input_layout
             }
             updateItem(view, item , sharedPrefs, layoutName, holder)
-            PopulateContentForList.loadList(sharedPrefs)
             notifyItemChanged(position)
         }
     }
@@ -158,17 +158,19 @@ class MyDataItemRecyclerViewAdapter(
                             val expense = ExpenseItem(item.ID, expenseItem, item.DATE_TIME , expenseDescription,expenseAmountFLOAT!! )
                             util.updateItem(sharedPref, expense)
 
-//                    val intId = item.ID.filter { it.isDigit() }
-//                    val updatedItem: ExpenseItem = util.getItem(sharedPref, intId)
-//                    holder.idView.text = updatedItem.TYPE
-//                    holder.dateView.text = "updatedItem.DATE_TIME"
-//                    holder.amountView.text = updatedItem.AMOUNT.toString()
-//                    notifyDataSetChanged()
+                            PopulateContentForList.loadList(sharedPref)
+                            val newList = PopulateContentForList.ITEMS
+                            updateItemsList(newList)
                             dialog.dismiss()
                         }
                     }
 
                 })
         }
+    }
+
+    fun updateItemsList(newlist: List<ExpenseItem>) {
+        values = newlist
+        notifyDataSetChanged()
     }
 }

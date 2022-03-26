@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.DialogInterface
 import android.content.SharedPreferences
 import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.INVISIBLE
@@ -15,6 +16,8 @@ import com.example.expesestracker.databinding.FragmentItemBinding
 import com.example.expesestracker.models.DBUtilities
 import com.example.expesestracker.models.ExpenseItem
 import com.example.expesestracker.models.PopulateContentForList
+import java.text.SimpleDateFormat
+import java.time.format.DateTimeFormatter
 
 
 /**
@@ -42,7 +45,11 @@ class MyDataItemRecyclerViewAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = values[position]
         holder.idView.text = item.TYPE
-        holder.dateView.text = item.DATE_TIME
+        val date = SimpleDateFormat("M/d/y H:m:ss").parse(item.DATE_TIME)
+        val formatter = SimpleDateFormat("dd-MMM HH:mm ")
+        val dateTime = formatter.format(date)
+//        Log.i("Date", dateTime.toString())
+        holder.dateView.text = dateTime.toString()
         holder.amountView.text = item.AMOUNT.toString()
 
 

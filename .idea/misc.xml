@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Projects/Android Studio/ExpesesTracker/app/src/main/res/drawable/custom_shape.xml" value="0.213" />
         <entry key="..\:/Projects/Android Studio/ExpesesTracker/app/src/main/res/layout/activity_analytic.xml" value="0.25" />
         <entry key="..\:/Projects/Android Studio/ExpesesTracker/app/src/main/res/layout/activity_analytics.xml" value="0.25" />
         <entry key="..\:/Projects/Android Studio/ExpesesTracker/app/src/main/res/layout/activity_expenses.xml" value="0.25" />

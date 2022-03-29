@@ -1,9 +1,7 @@
 package com.example.expesestracker.models
 
-import android.annotation.SuppressLint
 import android.content.SharedPreferences
 import android.util.Log
-import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -227,7 +225,6 @@ class DBUtilities {
      * Get the result only of items added this week by type of the items in the DB Expenses
      * @return [HashMap] of items for this week by Type  in the Expenses DB
      */
-    @SuppressLint("SimpleDateFormat")
     fun getThisWeekExpenses(sharedPreferences: SharedPreferences): HashMap<String, Float> {
         val hashMap : HashMap<String, Float>
                 = HashMap ()
@@ -243,9 +240,6 @@ class DBUtilities {
 //                Do Nothing
             }
             else{
-//                val date = SimpleDateFormat("M/d/y H:m:ss").parse(dateString)
-//                val dateDB: LocalDate = LocalDate.of(date.year, date.month, date.date)
-//                val weekOfYear: Int = dateDB.get(WeekFields.of(Locale.ENGLISH).weekOfYear())
                 val originalStartDate = LocalDate.parse(dateString, dateFormatter)
                 val dateWeek = LocalDate.of(originalStartDate.year, originalStartDate.month, originalStartDate.dayOfMonth)
                 val weekOfYear = dateWeek.get(WeekFields.of(Locale.ENGLISH).weekOfYear())
@@ -290,8 +284,6 @@ class DBUtilities {
 //                Do Nothing
             }
             else{
-//                val date = SimpleDateFormat("M/d/y H:m:ss").parse(dateString)
-//                val monthDB =  date.month
                 val originalStartDate = LocalDate.parse(dateString, dateFormatter)
                 val monthDB = originalStartDate.month
 //                Log.i("DATE", monthDB.toString())
@@ -438,11 +430,8 @@ class DBUtilities {
      * Get the week number by year
      * @return [Int] of the week number
      */
-    @SuppressLint("SimpleDateFormat")
     private fun getThisWeekNumber(): Int {
         val dateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("M/d/y H:m:ss"))
-//        val dateNow = SimpleDateFormat("M/d/y H:m:ss").parse(dateTime)
-
         val dateFormatter = DateTimeFormatter.ofPattern("M/d/y H:m:ss", Locale.ENGLISH)
         val originalStartDate = LocalDate.parse(dateTime, dateFormatter)
         val dateWeek = LocalDate.of(originalStartDate.year, originalStartDate.month, originalStartDate.dayOfMonth)

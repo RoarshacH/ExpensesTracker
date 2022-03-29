@@ -19,7 +19,6 @@ class ReportsActivity : AppCompatActivity()  {
         var hashMapExpensesMonth : HashMap<String, Float> = util.getThisMonthExpenses(this.getSharedPreferences("test-expenses", Context.MODE_PRIVATE))
         fillTable(hashMapExpensesMonth, "Month", "Expenses")
 
-
         var hashMapIncomesMonth : HashMap<String, Float> = util.getThisMonthIncomes(this.getSharedPreferences("test_income", Context.MODE_PRIVATE))
         fillTable(hashMapIncomesMonth, "Month" ,"Incomes")
 

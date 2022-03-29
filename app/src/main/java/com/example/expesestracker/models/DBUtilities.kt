@@ -12,7 +12,7 @@ import java.util.*
 
 class DBUtilities {
 
-
+    private val dateFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("M/d/y H:m:ss", Locale.ENGLISH)
     /**
      * @param sharedPreferences Shared Preferences reference to add
      * @param item item to Add
@@ -243,9 +243,12 @@ class DBUtilities {
 //                Do Nothing
             }
             else{
-                val date = SimpleDateFormat("M/d/y H:m:ss").parse(dateString)
-                val dateDB: LocalDate = LocalDate.of(date.year, date.month, date.date)
-                val weekOfYear: Int = dateDB.get(WeekFields.of(Locale.ENGLISH).weekOfYear())
+//                val date = SimpleDateFormat("M/d/y H:m:ss").parse(dateString)
+//                val dateDB: LocalDate = LocalDate.of(date.year, date.month, date.date)
+//                val weekOfYear: Int = dateDB.get(WeekFields.of(Locale.ENGLISH).weekOfYear())
+                val originalStartDate = LocalDate.parse(dateString, dateFormatter)
+                val dateWeek = LocalDate.of(originalStartDate.year, originalStartDate.month, originalStartDate.dayOfMonth)
+                val weekOfYear = dateWeek.get(WeekFields.of(Locale.ENGLISH).weekOfYear())
 
                 if (weekOfYear == thisWeek){
                     val getType = sharedPreferences.getString(Constants.TYPE + i, "ERROR")
@@ -271,15 +274,14 @@ class DBUtilities {
      * Get the result only of items added this month by type of the items in the DB Expenses
      * @return [HashMap] of items for this month by Type  in the Expenses DB
      */
-    @SuppressLint("SimpleDateFormat")
     fun getThisMonthExpenses(sharedPreferences: SharedPreferences): HashMap<String, Float> {
         val hashMap : HashMap<String, Float>
                 = HashMap ()
         var total = 0.0F
         val id = sharedPreferences.getInt(Constants.ID, 0)
         val dateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("M/d/y H:m:ss"))
-        val dateNow = SimpleDateFormat("M/d/y H:m:ss").parse(dateTime)
-        val thisMonth = dateNow.month
+        val originalStartDate = LocalDate.parse(dateTime, dateFormatter)
+        val thisMonth = originalStartDate.month
 
         for (i in 1..id) {
 
@@ -288,8 +290,11 @@ class DBUtilities {
 //                Do Nothing
             }
             else{
-                val date = SimpleDateFormat("M/d/y H:m:ss").parse(dateString)
-                val monthDB =  date.month
+//                val date = SimpleDateFormat("M/d/y H:m:ss").parse(dateString)
+//                val monthDB =  date.month
+                val originalStartDate = LocalDate.parse(dateString, dateFormatter)
+                val monthDB = originalStartDate.month
+//                Log.i("DATE", monthDB.toString())
 
                 if (monthDB == thisMonth){
                     val getType = sharedPreferences.getString(Constants.TYPE + i, "ERROR")
@@ -315,15 +320,15 @@ class DBUtilities {
      * Get the result only of items added this month by type of the items in the DB Incomes
      * @return [HashMap] of items for this month by Type  in the Incomes DB
      */
-    @SuppressLint("SimpleDateFormat")
     fun getThisMonthIncomes(sharedPreferences: SharedPreferences): HashMap<String, Float> {
         val hashMap : HashMap<String, Float>
                 = HashMap ()
         var total = 0.0F
         val id = sharedPreferences.getInt(Constants.ID, 0)
         val dateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("M/d/y H:m:ss"))
-        val dateNow = SimpleDateFormat("M/d/y H:m:ss").parse(dateTime)
-        val thisMonth = dateNow.month
+        val originalStartDate = LocalDate.parse(dateTime, dateFormatter)
+        val thisMonth = originalStartDate.month
+//        Log.i("DATE", thisMonth.toString())
 
         for (i in 1..id) {
 
@@ -332,8 +337,9 @@ class DBUtilities {
 //                Do Nothing
             }
             else {
-                val date = SimpleDateFormat("M/d/y H:m:ss").parse(dateString)
-                val monthDB = date.month
+                val originalStartDate = LocalDate.parse(dateString, dateFormatter)
+                val monthDB = originalStartDate.month
+                Log.i("DATE", monthDB.toString())
                 if (monthDB == thisMonth) {
                     val getType = sharedPreferences.getString(Constants.TYPE + i, "ERROR")
                     val getAmount = sharedPreferences.getFloat(Constants.AMOUNT + i, 0.0F)
@@ -374,7 +380,6 @@ class DBUtilities {
      * Get the result only of items added this week by type of the items in the DB Incomes
      * @return [HashMap] of items for this week by Type  in the Incomes DB
      */
-    @SuppressLint("SimpleDateFormat")
     fun getThisWeekIncomes(sharedPreferences: SharedPreferences): HashMap<String, Float> {
         val hashMap : HashMap<String, Float>
                 = HashMap ()
@@ -388,12 +393,15 @@ class DBUtilities {
             if (dateString.equals("ERROR")) {
 //                Do Nothing
             } else {
-                val date = SimpleDateFormat("M/d/y H:m:ss").parse(dateString)
-                val dateDB: LocalDate = LocalDate.of(date.year, date.month, date.date)
-                val weekOfYear: Int = dateDB.get(WeekFields.of(Locale.ENGLISH).weekOfYear())
+                val originalStartDate = LocalDate.parse(dateString, dateFormatter)
+                val dateWeek = LocalDate.of(originalStartDate.year, originalStartDate.month, originalStartDate.dayOfMonth)
+
+                val weekOfYear = dateWeek.get(WeekFields.of(Locale.ENGLISH).weekOfYear())
+
                 if (weekOfYear == thisWeek) {
                     val getType = sharedPreferences.getString(Constants.TYPE + i, "ERROR")
                     val getAmount = sharedPreferences.getFloat(Constants.AMOUNT + i, 0.0F)
+
                     total += getAmount
                     when (getType) {
                         Constants.SALARY -> putValueInHashMap(hashMap, Constants.SALARY, getAmount)
@@ -433,9 +441,14 @@ class DBUtilities {
     @SuppressLint("SimpleDateFormat")
     private fun getThisWeekNumber(): Int {
         val dateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("M/d/y H:m:ss"))
-        val dateNow = SimpleDateFormat("M/d/y H:m:ss").parse(dateTime)
-        val dateDBWeek: LocalDate = LocalDate.of(dateNow.year, dateNow.month, dateNow.date)
-        return dateDBWeek.get(WeekFields.of(Locale.ENGLISH).weekOfYear())
+//        val dateNow = SimpleDateFormat("M/d/y H:m:ss").parse(dateTime)
+
+        val dateFormatter = DateTimeFormatter.ofPattern("M/d/y H:m:ss", Locale.ENGLISH)
+        val originalStartDate = LocalDate.parse(dateTime, dateFormatter)
+        val dateWeek = LocalDate.of(originalStartDate.year, originalStartDate.month, originalStartDate.dayOfMonth)
+        Log.i("DATE", "NOW" + dateWeek.get(WeekFields.of(Locale.ENGLISH).weekOfYear()).toString())
+
+        return  dateWeek.get(WeekFields.of(Locale.ENGLISH).weekOfYear())
     }
 }
 

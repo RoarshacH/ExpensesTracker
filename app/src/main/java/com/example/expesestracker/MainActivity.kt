@@ -1,5 +1,6 @@
 package com.example.expesestracker
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -53,6 +54,7 @@ class MainActivity : AppCompatActivity() {
         setValuesToTable()
     }
 
+    @SuppressLint("SetTextI18n")
     private fun setValuesToTable(){
         val expensesTotalTextView = findViewById<TextView>(R.id.expensesTotal)
         val expensesLatestTextView = findViewById<TextView>(R.id.expensesLatest)

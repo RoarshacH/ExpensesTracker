@@ -1,10 +1,10 @@
 package com.example.expesestracker
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.DialogInterface
 import android.content.SharedPreferences
 import android.text.TextUtils
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.INVISIBLE
@@ -17,17 +17,16 @@ import com.example.expesestracker.models.DBUtilities
 import com.example.expesestracker.models.ExpenseItem
 import com.example.expesestracker.models.PopulateContentForList
 import java.text.SimpleDateFormat
-import java.time.format.DateTimeFormatter
+import java.util.*
 
 
 /**
  * [RecyclerView.Adapter] that can display a [ExpenseItem].
- * TODO: Replace the implementation with code for your data type.
  */
 class MyDataItemRecyclerViewAdapter(
     private var values: List<ExpenseItem>
 ) : RecyclerView.Adapter<MyDataItemRecyclerViewAdapter.ViewHolder>() {
-    var util = DBUtilities()
+    private var util = DBUtilities()
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -42,13 +41,13 @@ class MyDataItemRecyclerViewAdapter(
     }
 
 
+    @SuppressLint("SimpleDateFormat")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = values[position]
         holder.idView.text = item.TYPE
-        val date = SimpleDateFormat("M/d/y H:m:ss").parse(item.DATE_TIME)
+        val date = SimpleDateFormat("M/d/y H:m:ss").parse(item.DATE_TIME) as Date
         val formatter = SimpleDateFormat("dd-MMM HH:mm ")
         val dateTime = formatter.format(date)
-//        Log.i("Date", dateTime.toString())
         holder.dateView.text = dateTime.toString()
         holder.amountView.text = item.AMOUNT.toString()
 
@@ -81,7 +80,7 @@ class MyDataItemRecyclerViewAdapter(
                 sharedPrefs =  view.context.getSharedPreferences("test_income", Context.MODE_PRIVATE)
                 layoutName = R.layout.incomes_input_layout
             }
-            updateItem(view, item , sharedPrefs, layoutName, holder)
+            updateItem(view, item, sharedPrefs, layoutName)
             notifyItemChanged(position)
         }
     }
@@ -99,7 +98,12 @@ class MyDataItemRecyclerViewAdapter(
             return super.toString() + " '" + dateView.text + "'"
         }
     }
-    private fun updateItem(viewIn: View, item: ExpenseItem, sharedPref: SharedPreferences, layoutNM: Int, holder: ViewHolder) {
+    private fun updateItem(
+        viewIn: View,
+        item: ExpenseItem,
+        sharedPref: SharedPreferences,
+        layoutNM: Int
+    ) {
 
         val builder = AlertDialog.Builder(viewIn.context)
         val layoutInflater: LayoutInflater = viewIn.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
@@ -122,7 +126,7 @@ class MyDataItemRecyclerViewAdapter(
         with(builder) {
             setTitle("Edit Item")
             if (item.TYPE.equals("ERROR")){
-                Toast.makeText( view.context, "Error Item Does Not Exsist", Toast.LENGTH_SHORT).show();
+                Toast.makeText( view.context, "Error Item Does Not Exist", Toast.LENGTH_SHORT).show()
             }
             else{
                 amount.setText(item.AMOUNT.toString())
@@ -176,8 +180,9 @@ class MyDataItemRecyclerViewAdapter(
         }
     }
 
-    fun updateItemsList(newlist: List<ExpenseItem>) {
-        values = newlist
+    @SuppressLint("NotifyDataSetChanged")
+    fun updateItemsList(newList: List<ExpenseItem>) {
+        values = newList
         notifyDataSetChanged()
     }
 }

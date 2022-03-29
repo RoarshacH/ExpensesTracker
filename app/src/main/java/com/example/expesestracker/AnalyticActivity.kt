@@ -22,7 +22,7 @@ import com.github.mikephil.charting.utils.ColorTemplate
 
 class AnalyticActivity : AppCompatActivity() {
 
-    var util = DBUtilities()
+    private var util = DBUtilities()
     var hashMap: HashMap<String, Float> = HashMap()
     var typeSelection = ""
 

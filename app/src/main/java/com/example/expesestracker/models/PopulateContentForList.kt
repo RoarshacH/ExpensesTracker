@@ -9,11 +9,10 @@ import java.util.HashMap
  * Helper class for providing sample content for user interfaces created by
  * Android template wizards.
  *
- * TODO: Replace all uses of this class before publishing your app.
  */
 object PopulateContentForList {
 
-    val util = DBUtilities()
+    private val util = DBUtilities()
     /**
      * An array of sample (placeholder) items.
      */

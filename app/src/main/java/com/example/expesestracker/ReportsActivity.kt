@@ -13,34 +13,34 @@ class ReportsActivity : AppCompatActivity()  {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_report)
 
-        var hashMapExpensesWeek : HashMap<String, Float> = util.getThisWeekExpenses(this.getSharedPreferences("test-expenses", Context.MODE_PRIVATE))
+        val hashMapExpensesWeek : HashMap<String, Float> = util.getThisWeekExpenses(this.getSharedPreferences("test-expenses", Context.MODE_PRIVATE))
         fillTable(hashMapExpensesWeek, "ThisWeek", "Expenses")
 
-        var hashMapExpensesMonth : HashMap<String, Float> = util.getThisMonthExpenses(this.getSharedPreferences("test-expenses", Context.MODE_PRIVATE))
+        val hashMapExpensesMonth : HashMap<String, Float> = util.getThisMonthExpenses(this.getSharedPreferences("test-expenses", Context.MODE_PRIVATE))
         fillTable(hashMapExpensesMonth, "Month", "Expenses")
 
-        var hashMapIncomesMonth : HashMap<String, Float> = util.getThisMonthIncomes(this.getSharedPreferences("test_income", Context.MODE_PRIVATE))
+        val hashMapIncomesMonth : HashMap<String, Float> = util.getThisMonthIncomes(this.getSharedPreferences("test_income", Context.MODE_PRIVATE))
         fillTable(hashMapIncomesMonth, "Month" ,"Incomes")
 
-        var hashMapIncomesWeek : HashMap<String, Float> = util.getThisWeekIncomes(this.getSharedPreferences("test_income", Context.MODE_PRIVATE));
+        val hashMapIncomesWeek : HashMap<String, Float> = util.getThisWeekIncomes(this.getSharedPreferences("test_income", Context.MODE_PRIVATE))
         fillTable(hashMapIncomesWeek, "ThisWeek" , "Incomes")
     }
 
-    fun fillTable(values : HashMap<String, Float>, fieldAttribute: String, uniqueForSomeFields: String){
+    private fun fillTable(values : HashMap<String, Float>, fieldAttribute: String, uniqueForSomeFields: String){
         if (values.isNotEmpty()) {
             for (key in values.keys) {
                 var textViewName = ""
-                if (key.equals("Total") || (key.equals("Other"))) {
-                    textViewName = key + fieldAttribute + uniqueForSomeFields
+                textViewName = if (key.equals("Total") || (key.equals("Other"))) {
+                    key + fieldAttribute + uniqueForSomeFields
                 } else {
-                    textViewName = key + fieldAttribute
+                    key + fieldAttribute
                 }
 
-                if (textViewName.isNullOrBlank()){
+                if (textViewName.isBlank()){
                     //Do Nothing
                 }
                 else{
-                    var textView = findViewById<TextView>(
+                    val textView = findViewById<TextView>(
                         resources.getIdentifier(
                             textViewName,
                             "id",

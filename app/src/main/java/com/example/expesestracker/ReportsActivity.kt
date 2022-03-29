@@ -8,7 +8,7 @@ import com.example.expesestracker.models.DBUtilities
 import java.util.HashMap
 
 class ReportsActivity : AppCompatActivity()  {
-    var util = DBUtilities()
+    private var util = DBUtilities()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_report)

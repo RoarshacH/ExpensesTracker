@@ -50,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:minHeight="48dp"
-                android:text="Select"
+                android:text="@string/select"
                 android:textStyle="bold"
                 android:gravity="center"
                 android:textColor="@color/black">

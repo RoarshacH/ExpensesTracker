@@ -1,9 +1,7 @@
 package com.example.expesestracker
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,9 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.expesestracker.models.ExpenseItem
 import com.example.expesestracker.models.PopulateContentForList
-import java.util.ArrayList
 
 /**
  * A fragment representing a list of Items.
@@ -64,10 +60,8 @@ class DataItemFragment : Fragment() {
 
     companion object {
 
-        // TODO: Customize parameter argument names
         const val ARG_COLUMN_COUNT = "column-count"
 
-        // TODO: Customize parameter initialization
         @JvmStatic
         fun newInstance(columnCount: Int) =
             DataItemFragment().apply {

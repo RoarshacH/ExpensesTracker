@@ -17,7 +17,7 @@ import java.util.*
 
 class ExpensesActivity : AppCompatActivity() {
 
-    val util = DBUtilities()
+    private val util = DBUtilities()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_expenses)

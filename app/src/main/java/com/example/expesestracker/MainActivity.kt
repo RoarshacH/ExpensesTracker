@@ -10,11 +10,11 @@ import com.example.expesestracker.models.DBUtilities
 
 class MainActivity : AppCompatActivity() {
 
-    val util = DBUtilities()
-    var latestExpense: Float = 0.0F
-    var totalExpense: Float = 0.0F
-    var totalIncome: Float = 0.0F
-    var latestIncome:Float = 0.0F
+    private val util = DBUtilities()
+    private var latestExpense: Float = 0.0F
+    private var totalExpense: Float = 0.0F
+    private var totalIncome: Float = 0.0F
+    private var latestIncome:Float = 0.0F
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,26 +23,26 @@ class MainActivity : AppCompatActivity() {
         setValuesToTable()
 
         val expensesButton = findViewById<ImageButton>(R.id.expensesImageButton)
-        expensesButton.setOnClickListener { view ->
+        expensesButton.setOnClickListener {
             val intent = Intent(this, ExpensesActivity::class.java)
             startActivity(intent)
         }
 
 
         val incomesButton = findViewById<ImageButton>(R.id.incomesImageButton)
-        incomesButton.setOnClickListener { view ->
+        incomesButton.setOnClickListener {
             val intent = Intent(this, IncomeActivity::class.java)
             startActivity(intent)
         }
 
         val reportButton = findViewById<ImageButton>(R.id.reportImageButton)
-        reportButton.setOnClickListener { view ->
+        reportButton.setOnClickListener {
             val intent = Intent(this, ReportsActivity::class.java)
             startActivity(intent)
         }
 
         val analyticsButton = findViewById<ImageButton>(R.id.analyticsImageButton)
-        analyticsButton.setOnClickListener { view ->
+        analyticsButton.setOnClickListener {
             val intent = Intent(this, AnalyticActivity::class.java)
             startActivity(intent)
         }
@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
         setValuesToTable()
     }
 
-    fun setValuesToTable(){
+    private fun setValuesToTable(){
         val expensesTotalTextView = findViewById<TextView>(R.id.expensesTotal)
         val expensesLatestTextView = findViewById<TextView>(R.id.expensesLatest)
         val incomeLatestTextView = findViewById<TextView>(R.id.incomeLatest)
@@ -65,10 +65,10 @@ class MainActivity : AppCompatActivity() {
         totalIncome = util.getTotal(getSharedPreferences("test_income", Context.MODE_PRIVATE))
 
 
-        expensesLatestTextView.text = "$ " + latestExpense.toString()
-        expensesTotalTextView.text = "$ " + totalExpense.toString()
-        incomeLatestTextView.text = "$ " + latestIncome.toString()
-        incomeTotalTextView.text = "$ " + totalIncome.toString()
+        expensesLatestTextView.text = "$ $latestExpense"
+        expensesTotalTextView.text = "$ $totalExpense"
+        incomeLatestTextView.text = "$ $latestIncome"
+        incomeTotalTextView.text = "$ $totalIncome"
 
     }
 }

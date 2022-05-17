@@ -5,24 +5,27 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
 import com.example.expesestracker.models.DBUtilities
+import com.example.expesestracker.models.SQLUtilities
 import java.util.HashMap
 
 class ReportsActivity : AppCompatActivity()  {
-    private var util = DBUtilities()
+//    private var util = DBUtilities()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_report)
 
-        val hashMapExpensesWeek : HashMap<String, Float> = util.getThisWeekExpenses(this.getSharedPreferences("test-expenses", Context.MODE_PRIVATE))
+        var sqlUtil = SQLUtilities(this)
+
+        val hashMapExpensesWeek : HashMap<String, Float> = sqlUtil.getThisWeekExpenses()
         fillTable(hashMapExpensesWeek, "ThisWeek", "Expenses")
 
-        val hashMapExpensesMonth : HashMap<String, Float> = util.getThisMonthExpenses(this.getSharedPreferences("test-expenses", Context.MODE_PRIVATE))
+        val hashMapExpensesMonth : HashMap<String, Float> = sqlUtil.getThisMonthExpenses()
         fillTable(hashMapExpensesMonth, "Month", "Expenses")
 
-        val hashMapIncomesMonth : HashMap<String, Float> = util.getThisMonthIncomes(this.getSharedPreferences("test_income", Context.MODE_PRIVATE))
+        val hashMapIncomesMonth : HashMap<String, Float> = sqlUtil.getThisMonthIncomes()
         fillTable(hashMapIncomesMonth, "Month" ,"Incomes")
 
-        val hashMapIncomesWeek : HashMap<String, Float> = util.getThisWeekIncomes(this.getSharedPreferences("test_income", Context.MODE_PRIVATE))
+        val hashMapIncomesWeek : HashMap<String, Float> = sqlUtil.getThisWeekIncomes()
         fillTable(hashMapIncomesWeek, "ThisWeek" , "Incomes")
     }
 

@@ -5,9 +5,11 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.ImageButton
 import android.widget.TextView
 import com.example.expesestracker.models.DBUtilities
+import com.example.expesestracker.models.SQLUtilities
 
 class MainActivity : AppCompatActivity() {
 
@@ -61,12 +63,18 @@ class MainActivity : AppCompatActivity() {
         val expensesLatestTextView = findViewById<TextView>(R.id.expensesLatest)
         val incomeLatestTextView = findViewById<TextView>(R.id.incomeLatest)
         val incomeTotalTextView = findViewById<TextView>(R.id.incomeTotal)
-        latestExpense = util.getLatest(this.getSharedPreferences("test-expenses", Context.MODE_PRIVATE))
-        totalExpense = util.getTotal(this.getSharedPreferences("test-expenses", Context.MODE_PRIVATE))
+        var sqlUtil = SQLUtilities(this)
+        latestExpense = sqlUtil.getLatestItem(1)
+        totalExpense = sqlUtil.getTotalForWeek(1)
 
-        latestIncome =  util.getLatest(getSharedPreferences("test_income", Context.MODE_PRIVATE))
-        totalIncome = util.getTotal(getSharedPreferences("test_income", Context.MODE_PRIVATE))
+        latestIncome =  sqlUtil.getLatestItem(0)
+        totalIncome =  sqlUtil.getTotalForWeek(0)
 
+        val hMap = sqlUtil.getThisMonthExpenses()
+        for ((key, value) in hMap) {
+            Log.i("TAG","$key = $value")
+        }
+        Log.i("TAG","DONE")
 
         expensesLatestTextView.text = "$ $latestExpense"
         expensesTotalTextView.text = "$ $totalExpense"

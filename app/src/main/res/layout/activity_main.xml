@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:background="@color/white">
+    android:background="@color/white"
+    tools:context=".MainActivity">
 
     <TextView
         android:id="@+id/textView12"
@@ -19,6 +19,7 @@
         android:textColor="@color/white"
         android:textSize="28sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/Table"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,7 +31,7 @@
         android:layout_height="wrap_content"
         android:background="@color/main_blue"
         android:padding="10dp"
-        android:paddingHorizontal="10dp"
+        android:paddingHorizontal="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -148,6 +149,7 @@
         </TableRow>
     </TableLayout>
 
+
     <ImageButton
         android:id="@+id/expensesImageButton"
         android:layout_width="150dp"
@@ -156,10 +158,10 @@
         android:contentDescription="@string/expenses"
         android:scaleType="fitCenter"
         android:src="@drawable/expense_icon"
-        app:layout_constraintBottom_toTopOf="@+id/reportImageButton"
-        app:layout_constraintEnd_toStartOf="@+id/incomesImageButton"
+        app:layout_constraintBottom_toTopOf="@+id/analyticsImageButton"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/incomesImageButton"
         app:layout_constraintTop_toBottomOf="@+id/Table"
         tools:ignore="DuplicateSpeakableTextCheck" />
 
@@ -171,10 +173,10 @@
         android:contentDescription="@string/income"
         android:scaleType="fitCenter"
         android:src="@drawable/incomes_icon"
-        app:layout_constraintBottom_toTopOf="@+id/analyticsImageButton"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/reportImageButton"
+        app:layout_constraintEnd_toStartOf="@+id/expensesImageButton"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/expensesImageButton"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Table"
         tools:ignore="DuplicateSpeakableTextCheck" />
 
@@ -190,7 +192,7 @@
         app:layout_constraintEnd_toStartOf="@+id/analyticsImageButton"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/expensesImageButton" />
+        app:layout_constraintTop_toBottomOf="@+id/incomesImageButton" />
 
     <ImageButton
         android:id="@+id/analyticsImageButton"
@@ -204,7 +206,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/reportImageButton"
-        app:layout_constraintTop_toBottomOf="@+id/incomesImageButton" />
+        app:layout_constraintTop_toBottomOf="@+id/expensesImageButton" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

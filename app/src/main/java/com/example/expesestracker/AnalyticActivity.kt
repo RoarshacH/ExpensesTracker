@@ -8,6 +8,7 @@ import android.widget.AdapterView
 import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
 import com.example.expesestracker.models.DBUtilities
+import com.example.expesestracker.models.SQLUtilities
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.data.PieData
@@ -104,11 +105,12 @@ class AnalyticActivity : AppCompatActivity() {
 
     private fun getDBData(position: Int): HashMap<String, Float> {
         var hashMap : HashMap<String, Float> = HashMap()
+        var sqlUtil = SQLUtilities(this)
         when(position){
-            0 -> hashMap = util.getThisWeekExpenses(this.getSharedPreferences("test-expenses", Context.MODE_PRIVATE))
-            1 -> hashMap = util.getThisMonthExpenses(this.getSharedPreferences("test-expenses", Context.MODE_PRIVATE))
-            2 -> hashMap = util.getThisWeekIncomes(this.getSharedPreferences("test_income", Context.MODE_PRIVATE))
-            3 -> hashMap = util.getThisMonthIncomes(this.getSharedPreferences("test_income", Context.MODE_PRIVATE))
+            0 -> hashMap = sqlUtil.getThisWeekExpenses()
+            1 -> hashMap = sqlUtil.getThisMonthExpenses()
+            2 -> hashMap = sqlUtil.getThisWeekIncomes()
+            3 -> hashMap = sqlUtil.getThisMonthIncomes()
         }
         return hashMap
 

@@ -11,8 +11,6 @@ import java.util.HashMap
  *
  */
 object PopulateContentForList {
-
-    private val util = DBUtilities()
     /**
      * An array of sample (placeholder) items.
      */
@@ -25,10 +23,10 @@ object PopulateContentForList {
 
     private var COUNT = 0
 
-    fun loadList(util: SQLUtilities){
+    fun loadList(util: SQLUtilities, category:Int){
 
-        COUNT = util.GetNumOfItems(1)
-        val expensesList: MutableList<ExpenseItem> = util.GetAllItems(1) as MutableList<ExpenseItem>
+        COUNT = util.GetNumOfItems(category)
+        val expensesList: MutableList<ExpenseItem> = util.GetAllItems(category) as MutableList<ExpenseItem>
         ITEMS = ArrayList()
         ITEM_MAP = HashMap()
         expensesList.forEach { expense:ExpenseItem ->
@@ -37,13 +35,8 @@ object PopulateContentForList {
             addItem(expenseItem)
         }
     }
-
     private fun addItem(item: ExpenseItem) {
         ITEMS.add(item)
         ITEM_MAP.put(item.ID, item)
     }
-
-    /**
-     * A placeholder item representing a piece of content.
-     */
 }

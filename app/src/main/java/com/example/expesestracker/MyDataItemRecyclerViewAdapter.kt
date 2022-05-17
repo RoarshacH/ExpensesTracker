@@ -27,7 +27,6 @@ import java.util.*
 class MyDataItemRecyclerViewAdapter(
     private var values: List<ExpenseItem>
 ) : RecyclerView.Adapter<MyDataItemRecyclerViewAdapter.ViewHolder>() {
-    private var util = DBUtilities()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
@@ -53,47 +52,37 @@ class MyDataItemRecyclerViewAdapter(
 
 
         holder.deleteItem.setOnClickListener { view ->
-            var sharedPrefs =  view.context.getSharedPreferences("test-expenses", Context.MODE_PRIVATE)
-            val pageContext = view.context.javaClass.toString()
-
-            if (pageContext == "class com.example.expesestracker.ExpensesActivity") {
-                sharedPrefs = view.context.getSharedPreferences("test-expenses", Context.MODE_PRIVATE)
-            } else if (pageContext == "class com.example.expesestracker.IncomeActivity") {
-                sharedPrefs =  view.context.getSharedPreferences("test_income", Context.MODE_PRIVATE)
-            }
-//            util.deleteItem(sharedPrefs, item)
-
             val dbUtilities = SQLUtilities(view.context)
             val result = dbUtilities.DeleteItem(item)
+            val pageContext = view.context.javaClass.toString()
+            var category: Int = 0
+            if (pageContext == "class com.example.expesestracker.ExpensesActivity") {
+                category = 1
+            } else if (pageContext == "class com.example.expesestracker.IncomeActivity") {
+                category = 0
+            }
             if (result == true) {
-                PopulateContentForList.loadList(dbUtilities)
+                PopulateContentForList.loadList(dbUtilities, category)
                 val newList = PopulateContentForList.ITEMS
                 updateItemsList(newList)
                 notifyItemRemoved(position)
             } else {
                 Toast.makeText(view.context, "Error Deleting Item", Toast.LENGTH_SHORT).show()
             }
-
-//            PopulateContentForList.loadList(dbUtilities)
-////            PopulateContentForList.loadList(sharedPrefs)
-//            val newList = PopulateContentForList.ITEMS
-//            updateItemsList(newList)
-//            notifyItemRemoved(position)
         }
 
         holder.editItem.setOnClickListener{view ->
-
-            var sharedPrefs =  view.context.getSharedPreferences("test-expenses", Context.MODE_PRIVATE)
             val pageContext = view.context.javaClass.toString()
             var layoutName = R.layout.expenses_input_layout
+            var category = 0
             if (pageContext == "class com.example.expesestracker.ExpensesActivity") {
                 layoutName = R.layout.expenses_input_layout
-                sharedPrefs = view.context.getSharedPreferences("test-expenses", Context.MODE_PRIVATE)
+                category = 1
             } else if (pageContext == "class com.example.expesestracker.IncomeActivity") {
-                sharedPrefs =  view.context.getSharedPreferences("test_income", Context.MODE_PRIVATE)
                 layoutName = R.layout.incomes_input_layout
+                category = 0
             }
-            updateItem(view, item, sharedPrefs, layoutName)
+            updateItem(view, item, layoutName, category)
             notifyItemChanged(position)
         }
     }
@@ -114,8 +103,8 @@ class MyDataItemRecyclerViewAdapter(
     private fun updateItem(
         viewIn: View,
         item: ExpenseItem,
-        sharedPref: SharedPreferences,
-        layoutNM: Int
+        layoutNM: Int,
+        category:Int
     ) {
 
         val builder = AlertDialog.Builder(viewIn.context)
@@ -183,21 +172,15 @@ class MyDataItemRecyclerViewAdapter(
                             val dbUtilities = SQLUtilities(view.context)
                             val result = dbUtilities.UpdateItem(expense)
                             if (result == true) {
-                                PopulateContentForList.loadList(dbUtilities)
+                                PopulateContentForList.loadList(dbUtilities, category)
                                 val newList = PopulateContentForList.ITEMS
                                 updateItemsList(newList)
                             } else {
                                 Toast.makeText(view.context, "Error Deleting Item", Toast.LENGTH_SHORT).show()
                             }
-//                            util.updateItem(sharedPref, expense)
-//
-////                            PopulateContentForList.loadList(sharedPref)
-//                            val newList = PopulateContentForList.ITEMS
-//                            updateItemsList(newList)
                             dialog.dismiss()
                         }
                     }
-
                 })
         }
     }

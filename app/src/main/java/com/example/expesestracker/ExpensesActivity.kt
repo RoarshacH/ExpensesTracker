@@ -1,7 +1,5 @@
 package com.example.expesestracker
 
-import android.content.Context
-import android.content.DialogInterface
 import android.os.Bundle
 import android.text.TextUtils
 import android.widget.Button
@@ -10,22 +8,16 @@ import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.example.expesestracker.models.DBUtilities
-import com.example.expesestracker.models.ExpenseItem
 import com.example.expesestracker.models.SQLUtilities
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-import java.util.*
 
 class ExpensesActivity : AppCompatActivity() {
 
-    private val util = DBUtilities()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_expenses)
-
-//        util.getValues(this.getSharedPreferences("test-expenses", Context.MODE_PRIVATE))
 
         val fab = findViewById<FloatingActionButton>(R.id.fab)
         fab.setOnClickListener {
@@ -40,17 +32,15 @@ class ExpensesActivity : AppCompatActivity() {
         val itemSpinner = view.findViewById<Spinner>(R.id.itemsSpinner)
         val description = view.findViewById<EditText>(R.id.note)
 
-        builder.setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, id ->
+        builder.setNegativeButton("Cancel") { dialog, id ->
             dialog.cancel()
-        })
+        }
 
         with(builder) {
             setTitle("Add an Expense Item")
-
             setView(view)
             saveButton.setOnClickListener {
                 val expenseAmount: String = amount.text.toString()
-
                 if (TextUtils.isEmpty(expenseAmount)) {
                     amount.error = "Amount is required"
                     return@setOnClickListener
@@ -67,7 +57,6 @@ class ExpensesActivity : AppCompatActivity() {
                     ).show()
                 }
                 else{
-//                    val expense = ExpenseItem("99", expenseItem, Date().toString() , expenseDescription,expenseAmountFLOAT!! )
                     val dateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("M/d/y H:m:ss"))
                     val databaseClass = SQLUtilities(this@ExpensesActivity)
                     val result: Boolean = databaseClass.InsertItem(expenseItem, expenseDescription, dateTime, expenseAmountFLOAT, 1)

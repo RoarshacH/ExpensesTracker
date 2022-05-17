@@ -56,6 +56,7 @@ class MainActivity : AppCompatActivity() {
 
     @SuppressLint("SetTextI18n")
     private fun setValuesToTable(){
+
         val expensesTotalTextView = findViewById<TextView>(R.id.expensesTotal)
         val expensesLatestTextView = findViewById<TextView>(R.id.expensesLatest)
         val incomeLatestTextView = findViewById<TextView>(R.id.incomeLatest)

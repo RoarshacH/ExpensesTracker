@@ -41,19 +41,14 @@ class DataItemFragment : Fragment() {
                     else -> GridLayoutManager(context, columnCount)
                 }
                 val pageContext = view.getContext().javaClass.toString()
-                var sharedPrefs =  activity?.getSharedPreferences("test", Context.MODE_PRIVATE)
-
-
+                var category = 0
                 if (pageContext == "class com.example.expesestracker.ExpensesActivity") {
-                    sharedPrefs =  activity?.getSharedPreferences("test-expenses", Context.MODE_PRIVATE)
+                    category = 1
                 } else if (pageContext == "class com.example.expesestracker.IncomeActivity") {
-                    sharedPrefs =  activity?.getSharedPreferences("test_income", Context.MODE_PRIVATE)
+                    category = 0
                 }
-
                 val dbUtilities = SQLUtilities(view.context)
-                PopulateContentForList.loadList(dbUtilities)
-
-//                PopulateContentForList.loadList(sharedPrefs!!)
+                PopulateContentForList.loadList(dbUtilities, category)
                 adapter = MyDataItemRecyclerViewAdapter(PopulateContentForList.ITEMS)
             }
         }

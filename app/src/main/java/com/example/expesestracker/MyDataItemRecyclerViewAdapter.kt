@@ -94,7 +94,7 @@ class MyDataItemRecyclerViewAdapter(
         val dateView: TextView = binding.itemDate
         val amountView: TextView = binding.itemAmount
         val deleteItem: ImageView = binding.deleteItem
-        val editItem: ImageView = binding.editItem
+        val editItem: LinearLayout = binding.layoutItemDetails
 
         override fun toString(): String {
             return super.toString() + " '" + dateView.text + "'"

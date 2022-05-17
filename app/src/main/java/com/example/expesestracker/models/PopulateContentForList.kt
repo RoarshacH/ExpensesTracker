@@ -25,12 +25,10 @@ object PopulateContentForList {
 
     private var COUNT = 0
 
-    fun loadList(sharedPreferences: SharedPreferences){
+    fun loadList(util: SQLUtilities){
 
-        COUNT = util.getNumberOfItems(sharedPreferences)
-        Log.i("Count", COUNT.toString())
-        val expensesList: MutableList<ExpenseItem> = util.getValues(sharedPreferences)
-        expensesList.reverse() // To order by latest to old
+        COUNT = util.GetNumOfItems(1)
+        val expensesList: MutableList<ExpenseItem> = util.GetAllItems(1) as MutableList<ExpenseItem>
         ITEMS = ArrayList()
         ITEM_MAP = HashMap()
         expensesList.forEach { expense:ExpenseItem ->

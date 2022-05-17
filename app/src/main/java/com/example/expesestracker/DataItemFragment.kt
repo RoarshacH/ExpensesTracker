@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.expesestracker.models.PopulateContentForList
+import com.example.expesestracker.models.SQLUtilities
 
 /**
  * A fragment representing a list of Items.
@@ -49,7 +50,10 @@ class DataItemFragment : Fragment() {
                     sharedPrefs =  activity?.getSharedPreferences("test_income", Context.MODE_PRIVATE)
                 }
 
-                PopulateContentForList.loadList(sharedPrefs!!)
+                val dbUtilities = SQLUtilities(view.context)
+                PopulateContentForList.loadList(dbUtilities)
+
+//                PopulateContentForList.loadList(sharedPrefs!!)
                 adapter = MyDataItemRecyclerViewAdapter(PopulateContentForList.ITEMS)
             }
         }

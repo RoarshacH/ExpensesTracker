@@ -16,6 +16,7 @@ import com.example.expesestracker.databinding.FragmentItemBinding
 import com.example.expesestracker.models.DBUtilities
 import com.example.expesestracker.models.ExpenseItem
 import com.example.expesestracker.models.PopulateContentForList
+import com.example.expesestracker.models.SQLUtilities
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -27,7 +28,6 @@ class MyDataItemRecyclerViewAdapter(
     private var values: List<ExpenseItem>
 ) : RecyclerView.Adapter<MyDataItemRecyclerViewAdapter.ViewHolder>() {
     private var util = DBUtilities()
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
@@ -61,11 +61,24 @@ class MyDataItemRecyclerViewAdapter(
             } else if (pageContext == "class com.example.expesestracker.IncomeActivity") {
                 sharedPrefs =  view.context.getSharedPreferences("test_income", Context.MODE_PRIVATE)
             }
-            util.deleteItem(sharedPrefs, item)
-            PopulateContentForList.loadList(sharedPrefs)
-            val newList = PopulateContentForList.ITEMS
-            updateItemsList(newList)
-            notifyItemRemoved(position)
+//            util.deleteItem(sharedPrefs, item)
+
+            val dbUtilities = SQLUtilities(view.context)
+            val result = dbUtilities.DeleteItem(item)
+            if (result == true) {
+                PopulateContentForList.loadList(dbUtilities)
+                val newList = PopulateContentForList.ITEMS
+                updateItemsList(newList)
+                notifyItemRemoved(position)
+            } else {
+                Toast.makeText(view.context, "Error Deleting Item", Toast.LENGTH_SHORT).show()
+            }
+
+//            PopulateContentForList.loadList(dbUtilities)
+////            PopulateContentForList.loadList(sharedPrefs)
+//            val newList = PopulateContentForList.ITEMS
+//            updateItemsList(newList)
+//            notifyItemRemoved(position)
         }
 
         holder.editItem.setOnClickListener{view ->
@@ -167,11 +180,20 @@ class MyDataItemRecyclerViewAdapter(
                         }
                         else{
                             val expense = ExpenseItem(item.ID, expenseItem, item.DATE_TIME , expenseDescription,expenseAmountFLOAT!! )
-                            util.updateItem(sharedPref, expense)
-
-                            PopulateContentForList.loadList(sharedPref)
-                            val newList = PopulateContentForList.ITEMS
-                            updateItemsList(newList)
+                            val dbUtilities = SQLUtilities(view.context)
+                            val result = dbUtilities.UpdateItem(expense)
+                            if (result == true) {
+                                PopulateContentForList.loadList(dbUtilities)
+                                val newList = PopulateContentForList.ITEMS
+                                updateItemsList(newList)
+                            } else {
+                                Toast.makeText(view.context, "Error Deleting Item", Toast.LENGTH_SHORT).show()
+                            }
+//                            util.updateItem(sharedPref, expense)
+//
+////                            PopulateContentForList.loadList(sharedPref)
+//                            val newList = PopulateContentForList.ITEMS
+//                            updateItemsList(newList)
                             dialog.dismiss()
                         }
                     }

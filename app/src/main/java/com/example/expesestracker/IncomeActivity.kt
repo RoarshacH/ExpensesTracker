@@ -10,6 +10,7 @@ import android.widget.EditText
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import com.example.expesestracker.models.BuildNotifications
 import com.example.expesestracker.models.DBUtilities
 import com.example.expesestracker.models.ExpenseItem
 import com.example.expesestracker.models.SQLUtilities
@@ -20,11 +21,11 @@ import java.util.*
 
 class IncomeActivity : AppCompatActivity() {
 
+
     private val util = DBUtilities()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_income)
-
 
         val fab = findViewById<FloatingActionButton>(R.id.fabAddIncome)
         fab.setOnClickListener {
@@ -69,10 +70,16 @@ class IncomeActivity : AppCompatActivity() {
                 else{
                     val dateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("M/d/y H:m:ss"))
                     val databaseClass = SQLUtilities(this@IncomeActivity)
+                    val notifications = BuildNotifications(this@IncomeActivity);
                     val result: Boolean = databaseClass.InsertItem(expenseItem, expenseDescription, dateTime, expenseAmountFLOAT, 0)
                     if (result) {
                         Toast.makeText(view.context, "Item added successfully", Toast.LENGTH_SHORT)
                             .show()
+                        var totalExp = databaseClass.getTotalForWeek(1)
+                        val totalIncome = databaseClass.getTotalForWeek(0)
+                        if (totalIncome >= (totalExp + 500) ){
+                            notifications.buildNotification("Nice", "You have good amount of savings this week")
+                        }
                     } else {
                         Toast.makeText(view.context, "Error Adding Item", Toast.LENGTH_SHORT).show()
                     }
@@ -83,4 +90,5 @@ class IncomeActivity : AppCompatActivity() {
             show()
         }
     }
+
 }

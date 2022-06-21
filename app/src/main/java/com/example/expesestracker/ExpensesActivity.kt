@@ -8,6 +8,7 @@ import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.example.expesestracker.models.BuildNotifications
 import com.example.expesestracker.models.SQLUtilities
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.time.LocalDateTime
@@ -59,10 +60,19 @@ class ExpensesActivity : AppCompatActivity() {
                 else{
                     val dateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("M/d/y H:m:ss"))
                     val databaseClass = SQLUtilities(this@ExpensesActivity)
+                    val notifications = BuildNotifications(this@ExpensesActivity);
+                    var totalExp = databaseClass.getTotalForWeek(1)
+                    val totalIncome = databaseClass.getTotalForWeek(0)
                     val result: Boolean = databaseClass.InsertItem(expenseItem, expenseDescription, dateTime, expenseAmountFLOAT, 1)
                     if (result) {
                         Toast.makeText(view.context, "Item added successfully", Toast.LENGTH_SHORT)
                             .show()
+                        if (totalExp >= (totalIncome + 200) ){
+                            notifications.buildNotification("Heads Up!", "Your expenses are close to your income")
+                        }
+                        else if(totalExp >= totalIncome){
+                            notifications.buildNotification("Heads Up!", "Your expenses are more than your income")
+                        }
                     } else {
                         Toast.makeText(view.context, "Error Adding Item", Toast.LENGTH_SHORT).show()
                     }

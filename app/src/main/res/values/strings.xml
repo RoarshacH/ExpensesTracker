@@ -58,5 +58,15 @@
         <item>Week Income</item>
         <item>Month Income</item>
     </string-array>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="app_widget_description">This is an app widget description</string>
+
+    <string name="notification_title">Just so you know</string>
+    <string name="notification_body">We are out of food!</string>
+
+
+    <string name="channel_name">Expenses Tracker Channel</string>
+    <string name="channel_description">This is a notification channel to be used in Expenses Tracker App</string>
 
 </resources>

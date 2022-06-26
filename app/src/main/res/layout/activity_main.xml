@@ -184,6 +184,7 @@
         android:id="@+id/reportImageButton"
         android:layout_width="150dp"
         android:layout_height="150dp"
+        android:layout_marginBottom="50dp"
         android:backgroundTint="#002196F3"
         android:contentDescription="@string/report"
         android:scaleType="fitCenter"
@@ -198,6 +199,7 @@
         android:id="@+id/analyticsImageButton"
         android:layout_width="150dp"
         android:layout_height="150dp"
+        android:layout_marginBottom="50dp"
         android:backgroundTint="#002196F3"
         android:contentDescription="@string/analytics"
         android:scaleType="fitCenter"
@@ -207,6 +209,20 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/reportImageButton"
         app:layout_constraintTop_toBottomOf="@+id/expensesImageButton" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/imageFab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center"
+        android:layout_marginRight="40dp"
+        android:layout_marginBottom="50dp"
+        android:contentDescription="@string/add_item"
+        android:foreground="@drawable/camera_icon"
+        android:foregroundGravity="center"
+        app:backgroundTint="#077991"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

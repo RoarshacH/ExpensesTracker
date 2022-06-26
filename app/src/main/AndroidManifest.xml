@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.expesestracker">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+<!--    <uses-permission android:name="android.permission.CAMERA" />-->
 
     <application
         android:allowBackup="true"
@@ -12,6 +15,10 @@
         android:roundIcon="@drawable/expense_logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.ExpesesTracker">
+        <activity
+            android:name=".PhotosActivity"
+            android:exported="false" />
+
         <receiver
             android:name=".ExpensesAppWidget"
             android:exported="true">
@@ -23,10 +30,12 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/expenses_app_widget_info" />
         </receiver>
-        <receiver android:name = ".models.MyNotificationPublisher" />
+        <receiver android:name=".models.MyNotificationPublisher" />
 
-        <service android:name=".models.WidgetStackService"
-            android:permission="android.permission.BIND_REMOTEVIEWS"/>
+        <service
+            android:name=".models.WidgetStackService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
+
         <activity
             android:name=".SplashScreenActivity"
             android:exported="true">

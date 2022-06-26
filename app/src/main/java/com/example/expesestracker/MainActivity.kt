@@ -12,6 +12,7 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.example.expesestracker.models.*
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity : AppCompatActivity() {
 
@@ -52,6 +53,12 @@ class MainActivity : AppCompatActivity() {
         val analyticsButton = findViewById<ImageButton>(R.id.analyticsImageButton)
         analyticsButton.setOnClickListener {
             val intent = Intent(this, AnalyticActivity::class.java)
+            startActivity(intent)
+        }
+
+        val cameraButton = findViewById<FloatingActionButton>(R.id.imageFab)
+        cameraButton.setOnClickListener{
+            val intent = Intent(this, PhotosActivity::class.java)
             startActivity(intent)
         }
     }

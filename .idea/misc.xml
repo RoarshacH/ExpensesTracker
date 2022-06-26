@@ -5,13 +5,16 @@
       <map>
         <entry key="..\:/Projects/Android Studio/ExpesesTracker/app/src/main/res/drawable-v21/app_widget_background.xml" value="0.2085" />
         <entry key="..\:/Projects/Android Studio/ExpesesTracker/app/src/main/res/drawable-v21/app_widget_inner_view_background.xml" value="0.2085" />
+        <entry key="..\:/Projects/Android Studio/ExpesesTracker/app/src/main/res/drawable/camera_image.xml" value="0.1935" />
         <entry key="..\:/Projects/Android Studio/ExpesesTracker/app/src/main/res/drawable/custom_shape.xml" value="0.213" />
         <entry key="..\:/Projects/Android Studio/ExpesesTracker/app/src/main/res/drawable/ic_delete.xml" value="0.2085" />
+        <entry key="..\:/Projects/Android Studio/ExpesesTracker/app/src/main/res/drawable/notification_icon.xml" value="0.1935" />
         <entry key="..\:/Projects/Android Studio/ExpesesTracker/app/src/main/res/layout/activity_analytic.xml" value="0.25" />
         <entry key="..\:/Projects/Android Studio/ExpesesTracker/app/src/main/res/layout/activity_analytics.xml" value="0.25" />
         <entry key="..\:/Projects/Android Studio/ExpesesTracker/app/src/main/res/layout/activity_expenses.xml" value="0.25" />
         <entry key="..\:/Projects/Android Studio/ExpesesTracker/app/src/main/res/layout/activity_income.xml" value="0.25" />
         <entry key="..\:/Projects/Android Studio/ExpesesTracker/app/src/main/res/layout/activity_main.xml" value="0.176" />
+        <entry key="..\:/Projects/Android Studio/ExpesesTracker/app/src/main/res/layout/activity_photos.xml" value="0.23177083333333334" />
         <entry key="..\:/Projects/Android Studio/ExpesesTracker/app/src/main/res/layout/activity_report.xml" value="0.2" />
         <entry key="..\:/Projects/Android Studio/ExpesesTracker/app/src/main/res/layout/activity_splash_screen.xml" value="0.25" />
         <entry key="..\:/Projects/Android Studio/ExpesesTracker/app/src/main/res/layout/expenses_app_widget.xml" value="0.25" />
@@ -22,6 +25,7 @@
         <entry key="..\:/Projects/Android Studio/ExpesesTracker/app/src/main/res/layout/incomes_input_layout.xml" value="0.25" />
         <entry key="..\:/Projects/Android Studio/ExpesesTracker/app/src/main/res/layout/input_layout.xml" value="0.25" />
         <entry key="..\:/Projects/Android Studio/ExpesesTracker/app/src/main/res/layout/widget_stack_item.xml" value="0.1" />
+        <entry key="..\:/Projects/Android Studio/ExpesesTracker/app/src/main/res/xml/provider_paths_app.xml" value="0.19635416666666666" />
       </map>
     </option>
   </component>

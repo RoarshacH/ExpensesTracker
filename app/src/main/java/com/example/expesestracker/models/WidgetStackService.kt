@@ -50,24 +50,10 @@ internal class DemoWidgetStackViewFactory(var context: Context) :
 
         val view = RemoteViews(context.packageName, R.layout.widget_stack_item )
         val num = i - 1
-        Log.i("VIEW" , i.toString())
+//        Log.i("VIEW" , i.toString())
         view.setImageViewBitmap(R.id.widgetTitleText,BuildUpdate(textTitle, 150F, context))
         view.setImageViewBitmap(R.id.widgetBitmap1, BuildUpdate("$textWeek $ $totalWeek", 100F, context))
         view.setImageViewBitmap(R.id.widgetBitmap2, BuildUpdate("$textMonth $ $totalMonth", 100F, context))
-
-//        view.setTextViewText(
-//            R.id.txtTotalWeekWidgetValue, "$ " + totalWeek.toString()
-//        )
-//        view.setTextViewText(
-//            R.id.txtTotalMonthWidgetValue, "$ " + totalMonth.toString()
-//        )
-//
-//        view.setTextViewText(
-//            R.id.txtTotalMonthWidgetStr, textMonth
-//        )
-//        view.setTextViewText(
-//            R.id.txtTotalWeekWidgetStr, textWeek
-//        )
 
         return view
     }

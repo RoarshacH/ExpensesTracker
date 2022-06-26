@@ -23,6 +23,7 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/expenses_app_widget_info" />
         </receiver>
+        <receiver android:name = ".models.MyNotificationPublisher" />
 
         <service android:name=".models.WidgetStackService"
             android:permission="android.permission.BIND_REMOTEVIEWS"/>

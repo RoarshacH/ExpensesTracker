@@ -26,8 +26,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         setValuesToTable()
-        val scheduleNotification = ScheduleNotification(this, applicationContext)
-        scheduleNotification.scheduleNotification();
+
+        var noti = BuildNotifications(this@MainActivity);
+        noti.buildScheduledNotification(noti.getNotification( "DelayNOTI", "Other" ) );
 
         val expensesButton = findViewById<ImageButton>(R.id.expensesImageButton)
         expensesButton.setOnClickListener {

@@ -47,6 +47,7 @@
         app:backgroundTint="#077991"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@android:drawable/ic_input_add" />
+        android:foreground="@drawable/add_icon"
+        android:foregroundGravity="center" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -46,8 +46,9 @@
         android:layout_marginBottom="40dp"
         android:contentDescription="@string/add_item"
         app:backgroundTint="#077991"
+        android:foreground="@drawable/add_icon"
+        android:foregroundGravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@android:drawable/ic_input_add" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

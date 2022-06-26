@@ -71,5 +71,6 @@
 
     <string name="schedule_channel_name">Expenses Tracker Schedule Channel</string>
     <string name="schedule_channel_description">This is a notification channel to be used in scheduling Notifications for Expenses Tracker App</string>
+    <string name="receipts_list">Receipts List</string>
 
 </resources>

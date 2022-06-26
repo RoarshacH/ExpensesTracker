@@ -218,7 +218,7 @@
         android:layout_marginRight="40dp"
         android:layout_marginBottom="50dp"
         android:contentDescription="@string/add_item"
-        android:foreground="@drawable/camera_icon"
+        android:foreground="@drawable/icon_receipt"
         android:foregroundGravity="center"
         app:backgroundTint="#077991"
         app:layout_constraintBottom_toBottomOf="parent"

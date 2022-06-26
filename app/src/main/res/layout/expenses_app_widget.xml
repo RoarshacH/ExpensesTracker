@@ -2,12 +2,12 @@
     style="@style/Widget.ExpesesTracker.AppWidget.Container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:theme="@style/Theme.ExpesesTracker.AppWidgetContainer"
-    android:background="@color/white">
+    android:background="#00FFFFFF"
+    android:theme="@style/Theme.ExpesesTracker.AppWidgetContainer">
 
     <StackView
         android:id="@+id/widget_stack"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:loopViews="true"/>
+        android:loopViews="true" />
 </FrameLayout>

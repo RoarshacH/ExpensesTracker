@@ -60,7 +60,7 @@
     </string-array>
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
-    <string name="app_widget_description">This is an app widget description</string>
+    <string name="app_widget_description">This is an simple app widget That shows the total Income and total Expenses</string>
 
     <string name="notification_title">Just so you know</string>
     <string name="notification_body">We are out of food!</string>
@@ -68,5 +68,8 @@
 
     <string name="channel_name">Expenses Tracker Channel</string>
     <string name="channel_description">This is a notification channel to be used in Expenses Tracker App</string>
+
+    <string name="schedule_channel_name">Expenses Tracker Schedule Channel</string>
+    <string name="schedule_channel_description">This is a notification channel to be used in scheduling Notifications for Expenses Tracker App</string>
 
 </resources>

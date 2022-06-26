@@ -1,15 +1,12 @@
 package com.example.expesestracker
 
-import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
-import com.example.expesestracker.models.DBUtilities
 import com.example.expesestracker.models.SQLUtilities
 import java.util.HashMap
 
 class ReportsActivity : AppCompatActivity()  {
-//    private var util = DBUtilities()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_report)

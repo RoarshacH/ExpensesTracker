@@ -3,6 +3,7 @@
     package="com.example.expesestracker">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
 
     <application
         android:allowBackup="true"
@@ -22,6 +23,7 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/expenses_app_widget_info" />
         </receiver>
+
         <service android:name=".models.WidgetStackService"
             android:permission="android.permission.BIND_REMOTEVIEWS"/>
         <activity

@@ -11,6 +11,7 @@ import com.example.expesestracker.models.WidgetStackService
  * Implementation of App Widget functionality.
  */
 class ExpensesAppWidget : AppWidgetProvider() {
+
     override fun onUpdate(
         context: Context,
         appWidgetManager: AppWidgetManager,

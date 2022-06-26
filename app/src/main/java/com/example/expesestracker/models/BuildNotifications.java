@@ -10,7 +10,7 @@ import androidx.core.app.NotificationManagerCompat;
 import com.example.expesestracker.R;
 
 public class BuildNotifications {
-    private static final String CHANNEL_ID = "SMV_MID_CHANNEL";
+    private static final String CHANNEL_ID = "Notify_CHANNEL";
     int notificationId = 1;
     private Context context;
 

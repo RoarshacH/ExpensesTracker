@@ -1,6 +1,8 @@
 package com.example.expesestracker
 
 import android.annotation.SuppressLint
+import android.app.AlarmManager
+import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -8,8 +10,8 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.ImageButton
 import android.widget.TextView
-import com.example.expesestracker.models.DBUtilities
-import com.example.expesestracker.models.SQLUtilities
+import androidx.core.content.ContextCompat
+import com.example.expesestracker.models.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -24,6 +26,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         setValuesToTable()
+        val scheduleNotification = ScheduleNotification(this, applicationContext)
+        scheduleNotification.scheduleNotification();
 
         val expensesButton = findViewById<ImageButton>(R.id.expensesImageButton)
         expensesButton.setOnClickListener {

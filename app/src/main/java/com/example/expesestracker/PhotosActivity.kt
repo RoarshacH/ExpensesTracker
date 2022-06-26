@@ -64,12 +64,13 @@ class PhotosActivity : AppCompatActivity() {
 
         picturesList = ArrayList()
 
-        if (picturesList!!.isEmpty()){
-            progressbar?.visibility = View.VISIBLE
-            picturesList = getAllImages()
-            pictureRecyclerView?.adapter = ImageAdapter(this, picturesList!!)
-            progressbar?.visibility = View.GONE
-        }
+//        if (picturesList!!.isEmpty()){
+//            progressbar?.visibility = View.VISIBLE
+//            picturesList = getAllImages()
+//            pictureRecyclerView?.adapter = ImageAdapter(this, picturesList!!)
+//            progressbar?.visibility = View.GONE
+//        }
+        loadPictures()
 
     }
 
@@ -113,6 +114,7 @@ class PhotosActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK ){
             Toast.makeText(this, "Receipt Captured", Toast.LENGTH_SHORT ).show()
+            loadPictures()
 
         }
         else{
@@ -153,5 +155,15 @@ class PhotosActivity : AppCompatActivity() {
             imageUri = finalUri
         }
         return finalUri
+    }
+
+    fun loadPictures(){
+        picturesList?.clear()
+        progressbar?.visibility = View.VISIBLE
+        picturesList = getAllImages()
+        pictureRecyclerView?.adapter = ImageAdapter(this, picturesList!!)
+        progressbar?.visibility = View.GONE
+
+
     }
 }

@@ -31,10 +31,17 @@ class ImageAdapter(private var context: Context, private var imagesList: ArrayLi
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentImage = imagesList[position]
 
-        Glide.with(context)
-            .load(currentImage.imagePath)
-            .apply(RequestOptions().centerCrop())
-            .into(holder.imageVew!!)
+        if (currentImage.imagePath.isNullOrEmpty()){
+
+        }
+        else{
+            Glide.with(context)
+                .load(currentImage.imagePath)
+                .apply(RequestOptions().centerCrop())
+                .into(holder.imageVew!!)
+        }
+
+
 
 
         holder.imageVew.setOnClickListener{

@@ -11,11 +11,13 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -24,6 +26,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.expesestracker.models.Image
 import com.example.expesestracker.models.ImageAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import java.io.File
 
 
 class PhotosActivity : AppCompatActivity() {
@@ -72,10 +75,17 @@ class PhotosActivity : AppCompatActivity() {
 
     private fun getAllImages(): ArrayList<Image>? {
         val images = ArrayList<Image>()
+        val collection = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+        val path = "Pictures/MyReceipts/"
+        val selection = "${MediaStore.MediaColumns.RELATIVE_PATH} LIKE ?"
+        val selectionargs = arrayOf(path)
+
+
         val allImageUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+        Log.i("URI", allImageUri.toString())
 
         val projection = arrayOf(MediaStore.Images.ImageColumns.DATA, MediaStore.Images.Media.DISPLAY_NAME)
-        var cursor = this@PhotosActivity.contentResolver.query(allImageUri,projection,null,null, null)
+        var cursor = this@PhotosActivity.contentResolver.query(collection,projection,selection,selectionargs, null)
 
         try {
             cursor!!.moveToFirst()
@@ -83,21 +93,26 @@ class PhotosActivity : AppCompatActivity() {
                 val image = Image()
                 image.imagePath = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA))
                 image.imageName = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DISPLAY_NAME))
-                images.add(image)
+                val file = File(image.imagePath);
+                if(file.exists()){
+                    Log.i("URI", image.imageName.toString())
+                    images.add(image)
+                }
+
+
             }while (cursor.moveToNext())
             cursor.close()
 
         }catch (e: Exception){
             e.printStackTrace()
         }
+
         return images
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK ){
             Toast.makeText(this, "Receipt Captured", Toast.LENGTH_SHORT ).show()
-//            val imageBitmap = data?.extras?.get(("data")) as Bitmap
-        //            pictureImageView.setImageBitmap(imageBitmap)
 
         }
         else{

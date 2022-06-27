@@ -63,18 +63,16 @@ class PhotosActivity : AppCompatActivity() {
         }
 
         picturesList = ArrayList()
-
-//        if (picturesList!!.isEmpty()){
-//            progressbar?.visibility = View.VISIBLE
-//            picturesList = getAllImages()
-//            pictureRecyclerView?.adapter = ImageAdapter(this, picturesList!!)
-//            progressbar?.visibility = View.GONE
-//        }
         loadPictures()
 
     }
 
-    private fun getAllImages(): ArrayList<Image>? {
+    override fun onResume() {
+        super.onResume()
+        loadPictures()
+    }
+
+     fun getAllImages(): ArrayList<Image>? {
         val images = ArrayList<Image>()
         val collection = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
         val path = "Pictures/MyReceipts/"

@@ -33,27 +33,27 @@ class ExpensesActivity : AppCompatActivity() {
         val itemSpinner = view.findViewById<Spinner>(R.id.itemsSpinner)
         val description = view.findViewById<EditText>(R.id.note)
 
-        builder.setNegativeButton("Cancel") { dialog, id ->
+        builder.setNegativeButton(R.string.cancel) { dialog, _ ->
             dialog.cancel()
         }
 
         with(builder) {
-            setTitle("Add an Expense Item")
+            setTitle(getText(R.string.add_expense_item))
             setView(view)
             saveButton.setOnClickListener {
                 val expenseAmount: String = amount.text.toString()
                 if (TextUtils.isEmpty(expenseAmount)) {
-                    amount.error = "Amount is required"
+                    amount.error =  getText(R.string.amount_error)
                     return@setOnClickListener
                 }
                 val expenseAmountFLOAT: Float? = expenseAmount.toFloatOrNull()
                 val expenseItem = itemSpinner.selectedItem.toString()
                 val expenseDescription = description.text.toString()
 
-                if (expenseItem == "Select Item") {
+                if (expenseItem == getText(R.string.select_item)) {
                     Toast.makeText(
                         view.context,
-                        "Select a Type",
+                        getText(R.string.select_type),
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -65,16 +65,19 @@ class ExpensesActivity : AppCompatActivity() {
                     val totalIncome = databaseClass.getTotalForWeek(0)
                     val result: Boolean = databaseClass.InsertItem(expenseItem, expenseDescription, dateTime, expenseAmountFLOAT, 1)
                     if (result) {
-                        Toast.makeText(view.context, "Item added successfully", Toast.LENGTH_SHORT)
+                        Toast.makeText(view.context, getText(R.string.add_item_success), Toast.LENGTH_SHORT)
                             .show()
                         if (totalExp >= (totalIncome + 200) ){
-                            notifications.buildNotification("Heads Up!", "Your expenses are close to your income")
+                            notifications.buildNotification(getText(R.string.expense_notification_title) as String?,
+                                getText(R.string.expense_notification_message1) as String?
+                            )
                         }
                         else if(totalExp >= totalIncome){
-                            notifications.buildNotification("Heads Up!", "Your expenses are more than your income")
+                            notifications.buildNotification(getText(R.string.expense_notification_title) as String?,
+                                getText(R.string.expense_notification_message2) as String?)
                         }
                     } else {
-                        Toast.makeText(view.context, "Error Adding Item", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(view.context, getText(R.string.error_adding_item), Toast.LENGTH_SHORT).show()
                     }
                     finish()
                 }

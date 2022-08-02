@@ -11,7 +11,7 @@ class ReportsActivity : AppCompatActivity()  {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_report)
 
-        var sqlUtil = SQLUtilities(this)
+        val sqlUtil = SQLUtilities(this)
 
         val hashMapExpensesWeek : HashMap<String, Float> = sqlUtil.getThisWeekExpenses()
         fillTable(hashMapExpensesWeek, "ThisWeek", "Expenses")

@@ -5,6 +5,7 @@ import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -84,6 +85,8 @@ class ImageAdapter(private var context: Context, private var imagesList: ArrayLi
 
             fabDel.setOnClickListener{
                 val delete = File(uri.getPath())
+                val anim = AnimationUtils.loadAnimation(context, R.anim.fade_animation)
+                imageView.animation = anim
                 if (delete.exists()) {
                     if (delete.delete()) {
                         dialog.cancel()

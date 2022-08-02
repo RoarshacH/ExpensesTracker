@@ -3,21 +3,16 @@ package com.example.expesestracker
 import android.Manifest
 import android.content.ActivityNotFoundException
 import android.content.ContentValues
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import android.view.View
-import android.widget.Button
-import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -30,9 +25,9 @@ import java.io.File
 
 
 class PhotosActivity : AppCompatActivity() {
-    val REQUEST_IMAGE_CAPTURE = 100
-    lateinit var pictureRecyclerView : RecyclerView
-    var progressbar: ProgressBar?= null
+    private val REQUEST_IMAGE_CAPTURE = 100
+    private lateinit var pictureRecyclerView : RecyclerView
+    private var progressbar: ProgressBar?= null
     lateinit var imageUri : Uri
     private var picturesList: ArrayList<Image> ?= null
 
@@ -46,9 +41,9 @@ class PhotosActivity : AppCompatActivity() {
         pictureRecyclerView?.setHasFixedSize(true)
 
 
-        requestPermissions();
+        requestPermissions()
 
-        val btnTakePicture = findViewById<FloatingActionButton>(R.id.fabTakePicture);
+        val btnTakePicture = findViewById<FloatingActionButton>(R.id.fabTakePicture)
         btnTakePicture.setOnClickListener {
             val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
             val imagePath = createImage()
@@ -72,7 +67,7 @@ class PhotosActivity : AppCompatActivity() {
         loadPictures()
     }
 
-     fun getAllImages(): ArrayList<Image>? {
+     private fun getAllImages(): ArrayList<Image>? {
         val images = ArrayList<Image>()
         val collection = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
         val path = "Pictures/MyReceipts/"
@@ -84,7 +79,7 @@ class PhotosActivity : AppCompatActivity() {
         Log.i("URI", allImageUri.toString())
 
         val projection = arrayOf(MediaStore.Images.ImageColumns.DATA, MediaStore.Images.Media.DISPLAY_NAME)
-        var cursor = this@PhotosActivity.contentResolver.query(collection,projection,selection,selectionargs, null)
+        val cursor = this@PhotosActivity.contentResolver.query(collection,projection,selection,selectionargs, null)
 
         try {
             cursor!!.moveToFirst()
@@ -92,7 +87,7 @@ class PhotosActivity : AppCompatActivity() {
                 val image = Image()
                 image.imagePath = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA))
                 image.imageName = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DISPLAY_NAME))
-                val file = File(image.imagePath);
+                val file = File(image.imagePath)
                 if(file.exists()){
                     Log.i("URI", image.imageName.toString())
                     images.add(image)
@@ -136,8 +131,8 @@ class PhotosActivity : AppCompatActivity() {
 
 
     private fun createImage(): Uri? {
-        var uri: Uri? = null
-        var contentResolver = contentResolver
+        val uri: Uri?
+        val contentResolver = contentResolver
         val imgName: String = System.currentTimeMillis().toString()
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
             uri = MediaStore.Images.Media.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY)
@@ -155,7 +150,7 @@ class PhotosActivity : AppCompatActivity() {
         return finalUri
     }
 
-    fun loadPictures(){
+    private fun loadPictures(){
         picturesList?.clear()
         progressbar?.visibility = View.VISIBLE
         picturesList = getAllImages()

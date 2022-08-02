@@ -3,7 +3,7 @@ package com.example.expesestracker
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
+import android.view.animation.AnimationUtils
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -27,8 +27,12 @@ class MainActivity : AppCompatActivity() {
         var noti = BuildNotifications(this@MainActivity);
         noti.buildScheduledNotification(noti.getNotification( "DelayNOTI", "Other" ) )
 
+        val animation = AnimationUtils.loadAnimation(this, R.anim.slide_animation)
+
         val expensesButton = findViewById<ImageButton>(R.id.expensesImageButton)
+
         expensesButton.setOnClickListener {
+            expensesButton.startAnimation(animation)
             val intent = Intent(this, ExpensesActivity::class.java)
             startActivity(intent)
         }
@@ -36,18 +40,21 @@ class MainActivity : AppCompatActivity() {
 
         val incomesButton = findViewById<ImageButton>(R.id.incomesImageButton)
         incomesButton.setOnClickListener {
+            incomesButton.startAnimation(animation)
             val intent = Intent(this, IncomeActivity::class.java)
             startActivity(intent)
         }
 
         val reportButton = findViewById<ImageButton>(R.id.reportImageButton)
         reportButton.setOnClickListener {
+            reportButton.startAnimation(animation)
             val intent = Intent(this, ReportsActivity::class.java)
             startActivity(intent)
         }
 
         val analyticsButton = findViewById<ImageButton>(R.id.analyticsImageButton)
         analyticsButton.setOnClickListener {
+            analyticsButton.startAnimation(animation)
             val intent = Intent(this, AnalyticActivity::class.java)
             startActivity(intent)
         }

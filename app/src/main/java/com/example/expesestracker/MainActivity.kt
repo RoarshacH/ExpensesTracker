@@ -1,22 +1,18 @@
 package com.example.expesestracker
 
 import android.annotation.SuppressLint
-import android.app.AlarmManager
-import android.app.PendingIntent
-import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageButton
 import android.widget.TextView
-import androidx.core.content.ContextCompat
-import com.example.expesestracker.models.*
+import androidx.appcompat.app.AppCompatActivity
+import com.example.expesestracker.models.BuildNotifications
+import com.example.expesestracker.models.SQLUtilities
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity : AppCompatActivity() {
 
-    private val util = DBUtilities()
     private var latestExpense: Float = 0.0F
     private var totalExpense: Float = 0.0F
     private var totalIncome: Float = 0.0F
@@ -29,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         setValuesToTable()
 
         var noti = BuildNotifications(this@MainActivity);
-        noti.buildScheduledNotification(noti.getNotification( "DelayNOTI", "Other" ) );
+        noti.buildScheduledNotification(noti.getNotification( "DelayNOTI", "Other" ) )
 
         val expensesButton = findViewById<ImageButton>(R.id.expensesImageButton)
         expensesButton.setOnClickListener {
@@ -75,18 +71,12 @@ class MainActivity : AppCompatActivity() {
         val expensesLatestTextView = findViewById<TextView>(R.id.expensesLatest)
         val incomeLatestTextView = findViewById<TextView>(R.id.incomeLatest)
         val incomeTotalTextView = findViewById<TextView>(R.id.incomeTotal)
-        var sqlUtil = SQLUtilities(this)
+        val sqlUtil = SQLUtilities(this)
         latestExpense = sqlUtil.getLatestItem(1)
         totalExpense = sqlUtil.getTotalForWeek(1)
 
         latestIncome =  sqlUtil.getLatestItem(0)
         totalIncome =  sqlUtil.getTotalForWeek(0)
-
-        val hMap = sqlUtil.getThisMonthExpenses()
-        for ((key, value) in hMap) {
-            Log.i("TAG","$key = $value")
-        }
-        Log.i("TAG","DONE")
 
         expensesLatestTextView.text = "$ $latestExpense"
         expensesTotalTextView.text = "$ $totalExpense"

@@ -50,7 +50,7 @@ class MyDataItemRecyclerViewAdapter(
 
         holder.deleteItem.setOnClickListener { view ->
             val pageContext = view.context.javaClass.toString()
-            var category: Int = 0
+            var category = 0
             if (pageContext ==  "class com.example.expesestracker.ExpensesActivity") {
                 category = 1
             } else if (pageContext == "class com.example.expesestracker.IncomeActivity") {
@@ -93,7 +93,7 @@ class MyDataItemRecyclerViewAdapter(
         val builder = AlertDialog.Builder(viewIn.context)
         val dbUtilities = SQLUtilities(viewIn.context)
         builder.setMessage(R.string.dlt_message)
-            .setPositiveButton(R.string.yes, DialogInterface.OnClickListener { dialog, id ->
+            .setPositiveButton(R.string.yes, DialogInterface.OnClickListener { _, _ ->
                 // START THE GAME!
                 val result = dbUtilities.DeleteItem(item)
                 if (result == true) {
@@ -105,7 +105,7 @@ class MyDataItemRecyclerViewAdapter(
                     Toast.makeText(viewIn.context, "Error Deleting Item", Toast.LENGTH_SHORT).show()
                 }
             })
-            .setNegativeButton(R.string.no, DialogInterface.OnClickListener { dialog, id ->
+            .setNegativeButton(R.string.no, DialogInterface.OnClickListener { dialog, _ ->
                 // User cancelled the dialog
                 dialog.cancel()
             })
@@ -128,12 +128,12 @@ class MyDataItemRecyclerViewAdapter(
         val description = view.findViewById<EditText>(R.id.note)
         saveButton.visibility = INVISIBLE
 
-        builder.setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, id ->
+        builder.setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, _ ->
             dialog.cancel()
         })
 
         builder.setPositiveButton("Proceed", DialogInterface.OnClickListener {
-                dialog, id ->
+                _, _ ->
 
         })
 

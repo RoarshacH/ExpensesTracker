@@ -126,6 +126,25 @@ class SQLUtilities(context: Context) :
         return latest
 
     }
+
+    fun getLatestItemAll(category: Int): ExpenseItem? {
+        val selectQuery = "SELECT * FROM expenseItems WHERE category = " + category + " ORDER BY ID DESC LIMIT 1"
+        val db = this.writableDatabase
+        val cursor = db.rawQuery(selectQuery, null)
+        var item: ExpenseItem? = null
+        if(null != cursor)
+            if(cursor.count > 0){
+                cursor.moveToLast();
+                item = ExpenseItem(
+                    cursor!!.getString(0).toString(), cursor.getString(1),
+                    cursor.getString(4), cursor.getString(3), cursor.getString(2).toFloat()
+                )
+
+            }
+        cursor.close();
+        return item
+    }
+
     fun getTotalForWeek(category: Int): Float {
         var total = 0F
         val thisWeek = getThisWeekNumber()

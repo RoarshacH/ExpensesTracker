@@ -3,7 +3,6 @@ package com.example.expesestracker
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.DialogInterface
-import android.content.SharedPreferences
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +12,6 @@ import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.example.expesestracker.databinding.FragmentItemBinding
-import com.example.expesestracker.models.DBUtilities
 import com.example.expesestracker.models.ExpenseItem
 import com.example.expesestracker.models.PopulateContentForList
 import com.example.expesestracker.models.SQLUtilities
@@ -50,25 +48,15 @@ class MyDataItemRecyclerViewAdapter(
         holder.dateView.text = dateTime.toString()
         holder.amountView.text = item.AMOUNT.toString()
 
-
         holder.deleteItem.setOnClickListener { view ->
-            val dbUtilities = SQLUtilities(view.context)
-            val result = dbUtilities.DeleteItem(item)
             val pageContext = view.context.javaClass.toString()
             var category: Int = 0
-            if (pageContext == "class com.example.expesestracker.ExpensesActivity") {
+            if (pageContext ==  "class com.example.expesestracker.ExpensesActivity") {
                 category = 1
             } else if (pageContext == "class com.example.expesestracker.IncomeActivity") {
                 category = 0
             }
-            if (result == true) {
-                PopulateContentForList.loadList(dbUtilities, category)
-                val newList = PopulateContentForList.ITEMS
-                updateItemsList(newList)
-                notifyItemRemoved(position)
-            } else {
-                Toast.makeText(view.context, "Error Deleting Item", Toast.LENGTH_SHORT).show()
-            }
+            deleteItem(view, item, category, position)
         }
 
         holder.editItem.setOnClickListener{view ->
@@ -99,6 +87,30 @@ class MyDataItemRecyclerViewAdapter(
         override fun toString(): String {
             return super.toString() + " '" + dateView.text + "'"
         }
+    }
+
+    private fun deleteItem(viewIn: View, item: ExpenseItem, category: Int, position: Int){
+        val builder = AlertDialog.Builder(viewIn.context)
+        val dbUtilities = SQLUtilities(viewIn.context)
+        builder.setMessage(R.string.dlt_message)
+            .setPositiveButton(R.string.yes, DialogInterface.OnClickListener { dialog, id ->
+                // START THE GAME!
+                val result = dbUtilities.DeleteItem(item)
+                if (result == true) {
+                    PopulateContentForList.loadList(dbUtilities, category)
+                    val newList = PopulateContentForList.ITEMS
+                    updateItemsList(newList)
+                    notifyItemRemoved(position)
+                } else {
+                    Toast.makeText(viewIn.context, "Error Deleting Item", Toast.LENGTH_SHORT).show()
+                }
+            })
+            .setNegativeButton(R.string.no, DialogInterface.OnClickListener { dialog, id ->
+                // User cancelled the dialog
+                dialog.cancel()
+            })
+        val dialog = builder.create()
+        dialog.show()
     }
     private fun updateItem(
         viewIn: View,

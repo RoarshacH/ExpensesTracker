@@ -1,6 +1,5 @@
 package com.example.expesestracker
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -42,9 +41,9 @@ class DataItemFragment : Fragment() {
                 }
                 val pageContext = view.getContext().javaClass.toString()
                 var category = 0
-                if (pageContext == "class com.example.expesestracker.ExpensesActivity") {
+                if (pageContext == getText(R.string.page_context_expenses)) {
                     category = 1
-                } else if (pageContext == "class com.example.expesestracker.IncomeActivity") {
+                } else if (pageContext == getText(R.string.page_context_incomes)) {
                     category = 0
                 }
                 val dbUtilities = SQLUtilities(view.context)

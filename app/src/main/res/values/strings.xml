@@ -30,6 +30,33 @@
     <string name="salary">Salary</string>
     <string name="social_benefits">Social Benefits</string>
     <string name="investments">Investments</string>
+    <string name="dlt_message">Do you Really want to Delete this Item</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="cancel">Cancel</string>
+    <string name="image_deleted">Image Deleted</string>
+    <string name="image_deleted_issue">Error Deleting Image</string>
+    <string name="analytics_week_spending">This Weeks Spending</string>
+    <string name="analytics_month_spending">This Months Spending</string>
+    <string name="analytics_week_incomes">This Weeks Incomes</string>
+    <string name="analytics_month_incomes">This Months Incomes</string>
+    <string name="add_expense_item">Add an Expense Item</string>
+    <string name="add_income_item">Add an Income!</string>
+
+    <string name="amount_error">Amount is required</string>
+    <string name="select_type">Select a Type</string>
+    <string name="add_item_success">Item added successfully</string>
+    <string name="expense_notification_title">Heads Up!</string>
+    <string name="expense_notification_message1">Your expenses are close to your income</string>
+    <string name="expense_notification_message2">Your expenses are more than your income</string>
+    <string name="income_notification_message">You have good amount of savings this week</string>
+    <string name="error_adding_item">Error Adding Item</string>
+    <string name="select_item">Select Item</string>
+    <string name="page_context_expenses">class com.example.expesestracker.ExpensesActivity</string>
+    <string name="page_context_incomes">class com.example.expesestracker.IncomeActivity</string>
+
+
+
 
     <string-array name="items">
         <item>Select Item</item>

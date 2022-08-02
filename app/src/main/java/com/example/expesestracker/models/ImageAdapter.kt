@@ -5,12 +5,12 @@ import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.ImageView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.example.expesestracker.PhotosActivity
 import com.example.expesestracker.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.ortiz.touchview.TouchImageView
@@ -47,7 +47,7 @@ class ImageAdapter(private var context: Context, private var imagesList: ArrayLi
         }
 
         holder.imageVew.setOnClickListener{view ->
-            var layoutName = R.layout.image_full_screen
+            val layoutName = R.layout.image_full_screen
             fullScreenImage(view, currentImage, layoutName, position)
         }
 
@@ -87,9 +87,9 @@ class ImageAdapter(private var context: Context, private var imagesList: ArrayLi
                 if (delete.exists()) {
                     if (delete.delete()) {
                         dialog.cancel()
-                        Toast.makeText(context, "Image Deleted", Toast.LENGTH_SHORT)
+                        Toast.makeText(context, R.string.image_deleted, Toast.LENGTH_SHORT).show()
                     } else {
-                        Toast.makeText(context, "Error Deleting Image", Toast.LENGTH_SHORT)
+                        Toast.makeText(context, R.string.image_deleted_issue, Toast.LENGTH_SHORT).show()
                     }
                     dialog.cancel()
                 }

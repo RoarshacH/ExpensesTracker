@@ -6,7 +6,6 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
-import com.example.expesestracker.models.DBUtilities
 import com.example.expesestracker.models.SQLUtilities
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.components.Legend
@@ -19,7 +18,6 @@ import com.github.mikephil.charting.utils.ColorTemplate
 
 class AnalyticActivity : AppCompatActivity() {
 
-    private var util = DBUtilities()
     var hashMap: HashMap<String, Float> = HashMap()
     var typeSelection = ""
 
@@ -52,16 +50,16 @@ class AnalyticActivity : AppCompatActivity() {
                 hashMap = getDBData(position)
                 when(position){
                     0 -> {
-                        pieChart.centerText = "This Weeks Spending"
+                        pieChart.centerText = getText(R.string.analytics_week_spending)
                     }
                     1 -> {
-                        pieChart.centerText = "This Months Spending"
+                        pieChart.centerText = getText(R.string.analytics_month_spending)
                     }
                     2 -> {
-                        pieChart.centerText = "This Weeks Incomes"
+                        pieChart.centerText = getText(R.string.analytics_week_incomes)
                     }
                     3 -> {
-                        pieChart.centerText = "This Months Incomes"
+                        pieChart.centerText = getText(R.string.analytics_month_incomes)
                     }
                 }
                 if (hashMap.isNotEmpty()){
@@ -101,7 +99,7 @@ class AnalyticActivity : AppCompatActivity() {
 
     private fun getDBData(position: Int): HashMap<String, Float> {
         var hashMap : HashMap<String, Float> = HashMap()
-        var sqlUtil = SQLUtilities(this)
+        val sqlUtil = SQLUtilities(this)
         when(position){
             0 -> hashMap = sqlUtil.getThisWeekExpenses()
             1 -> hashMap = sqlUtil.getThisMonthExpenses()
